@@ -1,0 +1,105 @@
+I44_HT_A_M3_Army	M3 Halftrack
+I44_HT_A_M3A1_Army	M3A1 Halftrack
+I44_ACar_A_M8_Greyhound_Army	M8 Greyhound
+I44_Tank_A_M3A3_Stuart_Army	M3A3 Stuart
+I44_Tank_A_M5A1_Stuart_Army	M5A1 Stuart
+I44_Veh_A_Army_M4A3_Sherman_Army	M4A3 Sherman
+I44_Veh_A_Army_M4A3_76_Sherman_Army	M4A3 Sherman
+I44_Veh_A_Army_M4A3_DD_Sherman_Army	M4A3 Sherman
+I44_Tank_A_M4A3E8_76_HVSS_Sherman_Army	M4A3E8 HVSS
+I44_Boat_A_M1_AssaultBoat_Army	M1 Assault Boat
+I44_Boat_A_InflatableBoat_Army	Inflatable Boat
+I44_GunAT_A_M1_Army	M1 57mm AT Gun
+I44_GunAT_A_M3_Army	M3 37mm AT Gun
+I44_GunMortar_A_M1_Army	M1 Mortar
+I44_GunMortar_A_M2_Army	M2 Mortar
+I44_GunMG_A_M2HB_TripodAA_Army	M2HB (AA Tripod)
+I44_GunMG_A_M2HB_TripodM3_Army	M2HB (M3 Tripod)
+I44_GunMG_A_M1919A4_TripodM2_Army	M1919A4 (M2 Tripod)
+I44_Car_A_WillysMB_Army	1/4 Ton Truck
+I44_Car_A_WillysMB_M1919_Army	1/4 Ton Truck (M1919A4)
+I44_Truck_A_GMC_CCKW_Army	2 1/2 Ton Truck
+I44_Truck_A_GMC_CCKW_Ammo_Army	2 1/2 Ton Truck (Ammo)
+I44_Truck_A_GMC_CCKW_Fuel_Army	2 1/2 Ton Truck (Fuel)
+I44_Truck_A_GMC_CCKW_Open2_Army	2 1/2 Ton Truck (Open 2)
+I44_Truck_A_GMC_CCKW_Open_Army	2 1/2 Ton Truck (Open)
+I44_Truck_A_GMC_CCKW_Repair_Army	2 1/2 Ton Truck (Repair)
+I44_Boat_A_LCM3_Navy	LCM
+I44_Boat_A_LCVP_Navy	LCVP
+I44_Boat_A_M1_AssaultBoat_Navy	M1 Assault Boat
+I44_Plane_A_B17_AAF	B-17 Flying Fortress
+I44_Plane_A_C47A_AAF	C-47A
+I44_Plane_A_P38_AAF	P-38
+I44_Plane_A_P38_M64_AAF	P-38 (4x500lb)
+I44_Plane_A_P38_HVAR_AAF	P-38 (HVAR)
+I44_Plane_A_P51D_AAF	P-51D
+I44_Plane_A_P51D_250lb_AAF	P-51D (2x250lb)
+I44_Plane_A_P51D_HVAR_AAF	P-51D (HVAR)
+I44_Tank_B_ShermanIV_Army	Sherman IV
+I44_Tank_B_ShermanVC_Army	Sherman VC
+I44_GunAT_B_QF6pdrMk4_Army	QF 6pdr Mk. IV
+I44_GunMG_B_Vickers_Army	Vickers (tripod)
+I44_Car_B_WillysAB_Army	AB Jeep
+I44_Car_B_WillysAB_VGO_Army	AB Jeep (V60)
+I44_Plane_B_HHmkIIa_RAF	Hawker Hurricane Mk.IIa
+I44_Plane_B_HHmkIIa_M57_RAF	Hawker Hurricane Mk.IIa (2x250lb)
+I44_Plane_B_HHmkIIa_HVAR_RAF	Hawker Hurricane Mk.IIa (HVAR)
+I44_Plane_B_SpitfireMk1a_RAF	Spitfire Mk.Ia
+I44_Plane_B_SpitfireMk1a_M64_RAF	Spitfire Mk.Ia (1x500lb)
+I44_Plane_B_SpitfireMk1a_M57_RAF	Spitfire Mk.Ia (2x250lb)
+I44_Plane_G_Bf109E4_WL	Bf-109E4
+I44_Plane_G_Bf109F2_WL	Bf-109F2
+I44_Plane_G_Bf109F2_SC250_WL	Bf-109F2 (1xSC250)
+I44_Plane_G_Bf109F2_SC50_WL	Bf-109F2 (4xSC50)
+I44_Plane_G_Bf109G6_WL	Bf-1096G
+I44_Plane_G_Bf109G6_SC250_WL	Bf-1096G (1xSC250)
+I44_Plane_G_Ju52_3mg5e_WL	Ju-52/3mg5e
+I44_Plane_G_Ju87_WL	Ju-87A
+I44_Plane_G_Ju87_B_WL	Ju-87B (10xSC50)
+I44_Plane_G_Ju87_SC50_WL	Ju-87B (1xSC250, 5xSC50)
+I44_Plane_G_Ju87_SC250_WL	Ju-87B (4xSC250)
+I44_GunAA_G_FlaK36_Pintle_AT_WL	Flak 36 (Pintle AT)
+I44_GunAA_G_FlaK36_Pintle_WL	Flak 36 (Pintle)
+I44_GunAA_G_FlaK38_WL	Flak 38
+I44_Tank_G_PzKpfwII_F_WH	Pz.Kpfw. II Ausf. F
+I44_Tank_G_PzKpfwIV_D_WH	Pz.Kpfw. IV Ausf. D
+I44_Tank_G_PzKpfwIV_G_WH	Pz.Kpfw. IV Ausf. G
+I44_Tank_G_PzKpfwIV_G_Skirt_WH	Pz.Kpfw. IV Ausf. G (S)
+I44_Tank_G_PzKpfwV_G_WH	Pz.Kpfw. V Ausf. G
+I44_Tank_G_PzKpfwVI_B_WH	Pz.Kpfw. VI Ausf. B
+I44_Tank_G_PzKpfwVI_E_Late_WH	Pz.Kpfw. VI Ausf. E
+I44_Tank_G_PzKpfwVI_E_Late_AAMG_WH	Pz.Kpfw. VI Ausf. E (MG34)
+I44_HT_G_SdKfz2_Camo_WH	Sd.Kfz. 2 (Camo)
+I44_HT_G_SdKfz2_Gray_WH	Sd.Kfz. 2 (Gray)
+I44_ACar_G_SdKfz222_WH	Sd.Kfz. 222
+I44_ACar_G_SdKfz234_1_WH	Sd.Kfz. 234/1
+I44_ACar_G_SdKfz234_2_WH	Sd.Kfz. 234/2
+I44_ACar_G_SdKfz234_3_WH	Sd.Kfz. 234/3
+I44_ACar_G_SdKfz234_4_WH	Sd.Kfz. 234/4
+I44_HT_G_SdKfz251_1D_WH	Sd.Kfz. 251/1 Ausf. D
+I44_HT_G_SdKfz251_1_IID_WH	Sd.Kfz. 251/1-II Ausf. D*
+I44_HT_G_SdKfz251_2D_WH	Sd.Kfz. 251/2 Ausf. D
+I44_Tank_G_StuGIII_G_Late_WH	StuG. III Ausf. G
+I44_Tank_G_StuGIII_G_Late_Skirt_WH	StuG. III Ausf. G (S)
+I44_Tank_G_StuH42_G_WH	StuH. 42
+I44_Tank_G_StuH42_G_Skirt_WH	StuH. 42 (S)
+I44_GunBunker_G_FlaK36_R272_WH	Casemate R272 (Flak 36)
+I44_GunBunker_G_PaK40_R67L_WH	Casemate R67L (Pak 40)
+I44_GunBunker_G_PaK40_R67R_WH	Casemate R67R (Pak 40)
+I44_GunMortar_G_GrW34_WH	GrW 34
+I44_GunMG_G_MG42_Bipod_WH	MG42 (Bipod)
+I44_GunMG_G_MG42_Tripod_WH	MG42 (Tripod)
+I44_GunMG_G_MG42_Tripod_Zf40_WH	MG42 (Tripod, Zf40)
+I44_GunMG_G_MG42_Nest_WH	MG42 Nest
+I44_GunAT_G_PaK40_WH	Pak 40
+I44_GunAT_G_PaK40_Pintle_WH	Pak 40 (Pintle)
+I44_Car_G_Kfz1_Camo_WH	Kfz. 1 Kubelwagen (Camo)
+I44_Car_G_Kfz1_CamoOpen_WH	Kfz. 1 Kubelwagen (Camo, Open)
+I44_Car_G_Kfz1_Gray_WH	Kfz. 1 Kubelwagen (Gray)
+I44_Car_G_Kfz1_GrayOpen_WH	Kfz. 1 Kubelwagen (Gray, Open)
+I44_Truck_G_Kfz305_Ammo_WH	Kfz. 305 Open Blitz (Ammo)
+I44_Truck_G_Kfz305_Camo_WH	Kfz. 305 Open Blitz (Camo)
+I44_Truck_G_Kfz305_Fuel_WH	Kfz. 305 Open Blitz (Fuel)
+I44_Truck_G_Kfz305_Gray_WH	Kfz. 305 Open Blitz (Gray)
+I44_Truck_G_Kfz305_Open_WH	Kfz. 305 Open Blitz (Open)
+I44_Truck_G_Kfz305_Repair_WH	Kfz. 305 Open Blitz (Repair)

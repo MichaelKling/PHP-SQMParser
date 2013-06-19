@@ -1,0 +1,35 @@
+BWMod_UH1D	UH-1D		40	9	8	0
+BWMod_UH1D_SAR	UH-1D (SAR)		40	5	4	0
+BWMod_Leopard_2A6	Leopard 2A6		1200	3	0	1	Y
+BWMod_Leopard_2A6_Desert	Leopard 2A6 [Desert]
+BWMod_Marder_1A5	Marder 1A5		550	9	6	1	Y
+BWMod_Marder_1A5_Desert	Marder 1A5 [Desert]
+BWMod_Marder_1A5_ISAF	Marder 1A5 [ISAF]
+BWMod_Wiesel2_Ozelot	Wiesel 2 Ozelot		125	2	0	1	N
+BWMod_Wiesel2_Ozelot_Desert	Wiesel 2 Ozelot [Desert]
+BWMod_Wiesel2_Ozelot_ISAF	Wiesel 2 Ozelot [ISAF]
+BWMod_LKW5t	LKW 5t mil gl		20	13	15	1
+BWMod_LKW5t_Ammo	LKW 5t mil gl (Ammo)		20	1	0	1
+BWMod_LKW5t_Fuel	LKW 5t mil gl (Fuel)		20	1	0	1
+BWMod_LKW5t_Repair	LKW 5t mil gl (Repair)		20	1	0	1
+BWMod_Fuchs	TPz Fuchs 1A6		75	10	8	1
+BWMod_Fuchs_Desert	TPz Fuchs 1A6 [Desert]
+BWMod_Fuchs_ISAF	TPz Fuchs 1A6 [ISAF]
+BWMod_Fuchs_ArmoredTurret	TPz Fuchs 1A6 (Armored Turret)		75	10	8	1
+BWMod_Fuchs_ArmoredTurret_Desert	TPz Fuchs 1A6 (Armored Turret) [Desert]
+BWMod_Fuchs_ArmoredTurret_ISAF	TPz Fuchs 1A6 (Armored Turret) [ISAF]
+BWMod_Fuchs_BAT	TPz Fuchs 1A6 BAT		75	2	1	1
+BWMod_Fuchs_BAT_Desert	TPz Fuchs 1A6 BAT [Desert]
+BWMod_Fuchs_BAT_ISAF	TPz Fuchs 1A6 BAT [ISAF]
+AMT_wolf	G250 Wolf		45	4	3	1
+AMT_wolf_des	G250 Wolf Desert
+AMT_wolf_isaf	G250 Wolf ISAF
+AMT_wolf_winter	G250 Wolf Winter
+AMT_Dingo2A2	Dingo 2A2 GMW		75	6	4	1
+AMT_Dingo2A2_des	Dingo 2A2 GMW Desert
+AMT_Dingo2A2_isaf	Dingo 2A2 GMW ISAF
+AMT_Dingo2A2_winter	Dingo 2A2 GMW Winter
+AMT_Dingo2a2_MG	Dingo 2A2 MG3		75	6	4	1
+AMT_Dingo2a2_MG_des	Dingo 2A2 MG3 Desert
+AMT_Dingo2a2_MG_isaf	Dingo 2A2 MG3 ISAF
+AMT_Dingo2a2_MG_winter	Dingo 2A2 MG3 Winter

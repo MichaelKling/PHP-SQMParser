@@ -1,0 +1,266 @@
+Drake	Drake	
+Drake_Light	Drake (unarmed)
+Graves	Graves	
+Graves_Light	Graves (unarmed)
+Herrera	Herrera	
+Herrera_Light	Herrera (unarmed)
+Pierce	Pierce	
+Pierce_Light	Pierce (unarmed)
+US_Delta_Force_AR_EP1	Automatic Rifleman	
+US_Delta_Force_Air_Controller_EP1	Forward Air Controller	
+US_Delta_Force_MG_EP1	Machinegunner	
+US_Delta_Force_Assault_EP1	Operator (Assault)	
+US_Delta_Force_EP1	Operator	
+US_Delta_Force_M14_EP1	Operator (M14)	
+US_Delta_Force_Marksman_EP1	Marksman	
+US_Delta_Force_Medic_EP1	Medic	
+US_Delta_Force_Night_EP1	Operator (Night Assault)	
+US_Delta_Force_SD_EP1	Operator (Silenced)	
+US_Delta_Force_TL_EP1	Team Leader	
+US_Delta_Force_Undercover_Takistani06_EP1	Graves (undercover)	
+US_Soldier_AR_EP1	Auto Rifleman	
+US_Soldier_AT_EP1	AT Specialist	
+US_Soldier_AA_EP1	AA Specialist	
+US_Soldier_HAT_EP1	AT Specialist (Javelin)	
+US_Soldier_MG_EP1	Machinegunner	
+US_Soldier_AMG_EP1	Asst. Machinegunner	
+US_Soldier_AAR_EP1	Asst. Auto Rifleman
+US_Soldier_AAT_EP1	Asst. AT Specialist
+US_Soldier_AHAT_EP1	Asst. AT Specialist (Javelin)
+US_Soldier_EP1	Rifleman	
+US_Soldier_B_EP1	Rifleman (backpack)
+US_Soldier_Crew_EP1	Crewman	
+US_Soldier_Engineer_EP1	Engineer	
+US_Soldier_GL_EP1	Grenadier	
+US_Soldier_LAT_EP1	Rifleman (AT)	
+US_Pilot_Light_EP1	Pilot (light)	
+US_Soldier_Light_EP1	Soldier (light)	
+US_Soldier_MG_EP1	Machinegunner	
+US_Soldier_Marksman_EP1	Marksman	
+US_Soldier_Medic_EP1	Medic	
+US_Soldier_Officer_EP1	Officer	
+US_Soldier_Pilot_EP1	Pilot	
+US_Soldier_SL_EP1	Squad Leader	
+US_Soldier_SniperH_EP1	Sniper (M107)	
+US_Soldier_Sniper_EP1	Sniper	
+US_Soldier_Sniper_NV_EP1	Sniper (TWS)	
+US_Soldier_Spotter_EP1	Spotter	
+US_Soldier_TL_EP1	Team Leader	
+CZ_Soldier_AT_DES_EP1	AT Specialist	
+CZ_Soldier_DES_EP1	Rifleman	
+CZ_Soldier_AMG_DES_EP1	Asst. Machinegunner
+CZ_Soldier_B_DES_EP1	Rifleman (backpack)	
+CZ_Soldier_Light_DES_EP1	Soldier (light)	
+CZ_Soldier_MG_DES_EP1	Machinegunner	
+CZ_Soldier_Office_DES_EP1	Officer	
+CZ_Soldier_Pilot_DES_EP1	Pilot	
+CZ_Soldier_SL_DES_EP1	Squad Leader	
+CZ_Soldier_Sniper_DES_EP1	Sniper	
+CZ_Special_Forces_DES_EP1	Special Forces Rifleman	
+CZ_Special_Forces_GL_DES_EP1	Special Forces Grenadier	
+CZ_Special_Forces_MG_DES_EP1	Special Forces Machinegunner	
+CZ_Special_Forces_Scout_DES_EP1	Special Forces Scout	
+CZ_Special_Forces_TL_DES_EP1	Special Forces Team Leader	
+GER_Soldier_EP1	KSK Rifleman	
+GER_Soldier_MG_EP1	KSK Machinegunner	
+GER_Soldier_Medic_EP1	KSK Medic	
+GER_Soldier_Scout_EP1	KSK Scout	
+GER_Soldier_TL_EP1	KSK Team Leader	
+CIV_Contractor1_BAF	Contractor 1	
+CIV_Contractor2_BAF	Contractor 2	
+BAF_crewman_DDPM	Crewman	
+BAF_crewman_W	Crewman	
+BAF_crewman_MTP	Crewman	
+BAF_Soldier_FAC_DDPM	Joint Terminal Attack Controller	
+BAF_Soldier_FAC_W	Joint Terminal Attack Controller	
+BAF_Soldier_FAC_MTP	Joint Terminal Attack Controller	
+BAF_Soldier_N_DDPM	Rifleman (night)	
+BAF_Soldier_N_W	Rifleman (night)	
+BAF_Soldier_N_MTP	Rifleman (night)	
+BAF_Soldier_AT_DDPM	AT Specialist	
+BAF_Soldier_AT_W	AT Specialist	
+BAF_Soldier_AT_MTP	AT Specialist	
+BAF_Soldier_HAT_DDPM	AT Specialist (Javelin)	
+BAF_Soldier_HAT_W	AT Specialist (Javelin)	
+BAF_Soldier_HAT_MTP	AT Specialist (Javelin)	
+BAF_Soldier_MG_DDPM	Machinegunner	
+BAF_Soldier_MG_W	Machinegunner	
+BAF_Soldier_MG_MTP	Machinegunner	
+BAF_Soldier_AR_DDPM	Auto Rifleman	
+BAF_Soldier_AR_W	Auto Rifleman	
+BAF_Soldier_AR_MTP	Auto Rifleman	
+BAF_Soldier_AAT_DDPM	Asst. AT Rifleman	
+BAF_Soldier_AAT_W	Asst. AT Rifleman	
+BAF_Soldier_AAT_MTP	Asst. AT Rifleman	
+BAF_Soldier_AHAT_DDPM	Asst. AT Specialist (Javelin)
+BAF_Soldier_AHAT_W	Asst. AT Specialist (Javelin)
+BAF_Soldier_AHAT_MTP	Asst. AT Specialist (Javelin)
+BAF_Soldier_AHAT_DDPM	Asst. AT Specialist (Javelin)
+BAF_Soldier_AHAT_W	Asst. AT Specialist (Javelin)
+BAF_Soldier_AHAT_MTP	Asst. AT Specialist (Javelin)
+BAF_Soldier_AMG_DDPM	Asst. Machinegunner
+BAF_Soldier_AMG_W	Asst. Machinegunner
+BAF_Soldier_AMG_MTP	Asst. Machinegunner
+BAF_Soldier_AAR_DDPM	Asst. Auto Rifleman
+BAF_Soldier_AAR_W	Asst. Auto Rifleman
+BAF_Soldier_AAR_MTP	Asst. Auto Rifleman
+BAF_Soldier_Marksman_DDPM	Marksman	
+BAF_Soldier_Marksman_W	Marksman	
+BAF_Soldier_Marksman_MTP	Marksman	
+BAF_Soldier_Officer_DDPM	Officer	
+BAF_Soldier_Officer_W	Officer	
+BAF_Soldier_Officer_MTP	Officer	
+BAF_Soldier_L_DDPM	Soldier (light)	
+BAF_Soldier_L_W	Soldier (light)	
+BAF_Soldier_L_MTP	Soldier (light)	
+BAF_Soldier_DDPM	Rifleman	
+BAF_Soldier_W	Rifleman	
+BAF_Soldier_MTP	Rifleman	
+BAF_ASoldier_DDPM	Rifleman (backpack)	
+BAF_ASoldier_DDPM	Rifleman (backpack)	
+BAF_ASoldier_MTP	Rifleman (backpack)	
+BAF_Soldier_Medic_DDPM	Medic	
+BAF_Soldier_Medic_W	Medic	
+BAF_Soldier_Medic_MTP	Medic	
+BAF_Soldier_SL_DDPM	Squad Leader	
+BAF_Soldier_SL_W	Squad Leader	
+BAF_Soldier_SL_MTP	Squad Leader	
+BAF_Pilot_DDPM	Pilot	
+BAF_Pilot_W	Pilot	
+BAF_Pilot_MTP	Pilot	
+BAF_Soldier_GL_DDPM	Grenadier	
+BAF_Soldier_GL_W	Grenadier	
+BAF_Soldier_GL_MTP	Grenadier	
+BAF_Soldier_EN_DDPM	Engineer	
+BAF_Soldier_EN_W	Engineer	
+BAF_Soldier_EN_MTP	Engineer	
+BAF_Soldier_AA_DDPM	AA Specialist	
+BAF_Soldier_AA_W	AA Specialist	
+BAF_Soldier_AA_MTP	AA Specialist	
+BAF_Soldier_TL_DDPM	Team Leader	
+BAF_Soldier_TL_W	Team Leader	
+BAF_Soldier_TL_MTP	Team Leader	
+BAF_Soldier_SniperH_MTP	Sniper (AS50)	
+BAF_Soldier_SniperH_W	Sniper (AS50)	
+BAF_Soldier_SniperN_MTP	Sniper (AS50 TWS)	
+BAF_Soldier_SniperN_W	Sniper (AS50 TWS)	
+BAF_Soldier_spotterN_MTP	Spotter (night)	
+BAF_Soldier_spotterN_W	Spotter (night)	
+BAF_Soldier_Sniper_MTP	Sniper (LRR)
+BAF_Soldier_Sniper_W	Sniper (LRR)	
+TK_Aziz_EP1	Col. Aziz	
+TK_Commander_EP1	Commander	
+TK_Soldier_AT_EP1	AT Rifleman	
+TK_Soldier_MG_EP1	Machinegunner	
+TK_Soldier_AR_EP1	Auto Rifleman	
+TK_Soldier_AAT_EP1	Asst. AT Rifleman	
+TK_Soldier_AMG_EP1	Asst. AT Machinegunner
+TK_Soldier_EP1	Rifleman	
+TK_Soldier_B_EP1	Rifleman (backpack)	
+TK_Soldier_Crew_EP1	Crewman	
+TK_Soldier_Engineer_EP1	Engineer	
+TK_Soldier_GL_EP1	Grenadier	
+TK_Soldier_HAT_EP1	AT Specialist	
+TK_Soldier_LAT_EP1	Rifleman (RPG-18)	
+TK_Soldier_EP1	Rifleman	
+TK_Soldier_Medic_EP1	Medic	
+TK_Soldier_Night_1_EP1	Soldier (AKS-74 night)	
+TK_Soldier_Night_2_EP1	Soldier (night)	
+TK_Soldier_Officer_EP1	Officer	
+TK_Soldier_Pilot_EP1	Pilot	
+TK_Soldier_SL_EP1	Squad Leader	
+TK_Soldier_SniperH_EP1	Sniper (KSVK)	
+TK_Soldier_Sniper_EP1	Sniper	
+TK_Soldier_Sniper_Night_EP1	Sniper (night)	
+TK_Soldier_Spotter_EP1	Spotter	
+TK_Soldier_TWS_EP1	Soldier (TWS)	
+TK_Special_Forces_EP1	Special Forces Rifleman	
+TK_Special_Forces_MG_EP1	Special Forces Machinegunner	
+TK_Special_Forces_TL_EP1	Special Forces Team Leader	
+TK_INS_Bonesetter_EP1	Bonesetter	
+TK_INS_Soldier_2_EP1	Militiaman (AK-74 GL)	
+TK_INS_Soldier_3_EP1	Militiaman (Lee-Enfield)	
+TK_INS_Soldier_4_EP1	Militiaman (FN FAL)	
+TK_INS_Soldier_AT_EP1	Militiaman (RPG-7)	
+TK_INS_Soldier_AAT_EP1	Militiaman (RPG ammo)	
+TK_INS_Soldier_AA_EP1	AA Specialist	
+TK_INS_Soldier_AR_EP1	Automatic Rifleman	
+TK_INS_Soldier_EP1	Guerilla (AK-74)	
+TK_INS_Soldier_MG_EP1	Machinegunner	
+TK_INS_Soldier_Sniper_EP1	Militiaman Sniper	
+TK_INS_Soldier_TL_EP1	Team Leader	
+TK_INS_Soldier_Warlord_EP1	Warlord	
+TK_GUE_Bonesetter_EP1	Bonesetter	
+TK_GUE_Soldier_2_EP1	Guerilla (AK-47S)	
+TK_GUE_Soldier_3_EP1	Guerilla (M16A2)	
+TK_GUE_Soldier_4_EP1	Guerilla (M16A2 GL)	
+TK_GUE_Soldier_5_EP1	Guerilla (Lee-Enfield)	
+TK_GUE_Soldier_AT_EP1	Guerilla (RPG-7)	
+TK_GUE_Soldier_AAT_EP1	Guerilla (RPG ammo)	
+TK_GUE_Soldier_AA_EP1	AA Specialist	
+TK_GUE_Soldier_AR_EP1	Automatic Rifleman	
+TK_GUE_Soldier_EP1	Guerilla (AK-47)	
+TK_GUE_Soldier_HAT_EP1	Guerilla (Dragon)	
+TK_GUE_Soldier_MG_EP1	Machinegunner	
+TK_GUE_Soldier_Sniper_EP1	Guerilla Sniper	
+TK_GUE_Soldier_TL_EP1	Team Leader	
+TK_GUE_Soldier_Warlord_EP1	Warlord	
+UN_CDF_Soldier_AT_EP1	AT Rifleman	
+UN_CDF_Soldier_MG_EP1	Machinegunner	
+UN_CDF_Soldier_EP1	Soldier	
+UN_CDF_Soldier_AAT_EP1	Asst. AT Rifleman
+UN_CDF_Soldier_AMG_EP1	Asst. Machinegunner
+UN_CDF_Soldier_B_EP1	Soldier (backpack)
+UN_CDF_Soldier_Crew_EP1	Crewman	
+UN_CDF_Soldier_Guard_EP1	Guard	
+UN_CDF_Soldier_Light_EP1	Soldier (light)	
+UN_CDF_Soldier_Officer_EP1	Officer	
+UN_CDF_Soldier_Pilot_EP1	Pilot	
+UN_CDF_Soldier_SL_EP1	Squad Leader	
+Soldier_TL_PMC	Team Coordinator	
+Soldier_Bodyguard_AA12_PMC	Bodyguard (AA12)	
+Soldier_Bodyguard_M4_PMC	Bodyguard (M4A3)	
+Soldier_Sniper_PMC	Defensive Marksman	
+Soldier_Medic_PMC	Field Medic	
+Soldier_MG_PMC	Field Specialist (M8-auto)	
+Soldier_MG_PKM_PMC	Field Specialist (PKM)	
+Soldier_AT_PMC	Field Specialist (RPG-18)	
+Soldier_Engineer_PMC	Field Technican	
+Soldier_GL_M16A2_PMC	Security Contractor (M16A3-GL)	
+Soldier_M4A3_PMC	Security Contractor (M4A3)	
+Soldier_GL_PMC	Security Contractor (M8-GL)	
+Soldier_PMC	Security Contractor (M8)	
+Soldier_Crew_PMC	Tactical Driver	
+Soldier_Pilot_PMC	Tactical Pilot	
+Soldier_Sniper_KSVK_PMC	Tactical Specialist (KSVK)	
+Soldier_AA_PMC	Tactical Specialist (Stinger)	
+Poet_PMC	Frost	
+Tanny_PMC	Tanny	
+Reynolds_PMC	Reynolds	
+Dixon_PMC	Dixon	
+Ry_PMC	Asano	
+TK_CIV_Takistani01_EP1	Takistani (sweater)	
+TK_CIV_Takistani02_EP1	Takistani (jacket)	
+TK_CIV_Takistani03_EP1	Takistani (hat)	
+TK_CIV_Takistani04_EP1	Takistani (tuban)	
+TK_CIV_Takistani05_EP1	Takistani (scarf)	
+TK_CIV_Takistani06_EP1	Takistani (vest)	
+TK_CIV_Woman01_EP1	Takistani city woman	
+TK_CIV_Woman02_EP1	Takistani old woman	
+TK_CIV_Woman03_EP1	Takistani young woman	
+TK_CIV_Worker01_EP1	Worker (red)	
+TK_CIV_Worker02_EP1	Worker (brown)	
+CIV_EuroMan01_EP1	EuroMan1	
+CIV_EuroMan02_EP1	EuroMan2	
+CIV_EuroWoman01_EP1	EuroWoman1	
+CIV_EuroWoman02_EP1	EuroWoman2	
+Citizen2_EP1	Citizen (blue)	
+Citizen3_EP1	Citizen (gray)
+Dr_Annie_Baker_EP1	Dr. Annie Baker	
+Dr_Hladik_EP1	Dr. Hladik	
+Functionay1_EP1	Functionary (black suit)	
+Functionay2_EP1	Functionary (brown suit)
+Haris_Press_EP1	Haris Press	
+Pilot_EP1	Pilot (civil)	
+Profiteer1_EP1	Profiteer (blue)	
+Rita_Ensler_EP1	Rita Ensler	

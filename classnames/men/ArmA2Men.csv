@@ -1,0 +1,271 @@
+FR_Miles	Miles	
+FR_Cooper	Cooper	
+FR_Ohara	O'Hara	
+FR_Rodriguez	Rodriguez	
+FR_Sykes	Sykes	
+FR_AC	FAC Operator	
+FR_AR	Heavy Gunner	
+FR_Assault_GL	Assault Grenadier	
+FR_Assault_R	Assault Rifleman	
+FR_Commander	Commander	
+FR_Corpsman	Corpsman	
+FR_GL	Grenadier	
+FR_Light	Force Recon Unarmed	
+FR_Marksman	Marksman	
+FR_R	Saboteur	
+FR_Sapper	Demolitions Specialist	
+FR_TL	Team Leader	
+USMC_LHD_Crew_Blue	LHD Crew (Blue)	
+USMC_LHD_Crew_Brown	LHD Crew (Brown)
+USMC_LHD_Crew_Green	LHD Crew (Green)
+USMC_LHD_Crew_Purple	LHD Crew (Purple)
+USMC_LHD_Crew_Red	LHD Crew (Red)
+USMC_LHD_Crew_White	LHD Crew (White)
+USMC_LHD_Crew_Yellow	LHD Crew (Yellow)
+USMC_Soldier	Soldier	
+USMC_Soldier2	Soldier (M1014)	
+USMC_SoldierM_Marksman	Designated Marksman	
+USMC_SoldierS	Scout	
+USMC_SoldierS_Engineer	Engineer	
+USMC_SoldierS_Sniper	Sniper	
+USMC_SoldierS_SniperH	Sniper (M107)	
+USMC_SoldierS_Spotter	Spotter	
+USMC_Soldier_AA	Soldier (AA)	
+USMC_Soldier_AR	Automatic Rifleman	
+USMC_Soldier_AT	Soldier (M134)	
+USMC_Soldier_Crew	Crew	
+USMC_Soldier_GL	Grenadier	
+USMC_Soldier_HAT	Soldier (Javelin)	
+USMC_Soldier_LAT	Soldier (SMAW)	
+USMC_Soldier_Light	Soldier (unarmed)	
+USMC_Soldier_MG	Machinegunner	
+USMC_Soldier_Medic	Medic	
+USMC_Soldier_Officer	Officer	
+USMC_Soldier_Pilot	Pilot	
+USMC_Soldier_SL	Squad Leader	
+USMC_Soldier_TL	Team Leader	
+CDF_Soldier	Soldier	
+CDF_Commander	General	
+CDF_Soldier_AR	Light Machinegunner	
+CDF_Soldier_Crew	Crewman	
+CDF_Soldier_Engineer	Engineer	
+CDF_Soldier_GL	Grenadier	
+CDF_Soldier_Light	Soldier (unarmed)	
+CDF_Soldier_MG	Machinegunner	
+CDF_Soldier_Marksman	Marksman	
+CDF_Soldier_Medic	Medic	
+CDF_Soldier_Militia	Militia	
+CDF_Soldier_Officer	Officer	
+CDF_Soldier_Pilot	Pilot	
+CDF_Soldier_RPG	RPG Specialist	
+CDF_Soldier_Sniper	Sniper	
+CDF_Soldier_Spotter	Spotter	
+CDF_Soldier_Strela	AA Specialist	
+CDF_Soldier_TL	Team Leader	
+RU_Commander	General	
+RU_Soldier	Rifleman	
+RU_Soldier2	Rifleman (Saiga)	
+RU_Soldier_Crew	Crewman	
+RU_Soldier_GL	Grenadier	
+RU_Soldier_AR	Automatic Rifleman	
+RU_Soldier_HAT	AT Specialist (Metis)	
+RU_Soldier_LAT	Rifleman (RPG-18)	
+RU_Soldier_Light	Soldier (unarmed)	
+RU_Soldier_MG	Machinegunner	
+RU_Soldier_Marksman	Marksman	
+RU_Soldier_Medic	Medic	
+RU_Soldier_Officer	Officer	
+RU_Soldier_Pilot	Pilot	
+RU_Soldier_SL	Squad Leader	
+RU_Soldier_Sniper	Sniper	
+RU_Soldier_SniperH	Sniper (KSVK)	
+RU_Soldier_Spotter	Spotter	
+RU_Soldier_TL	Team Leader	
+RUS_Commander	Spetsnaz Officer	
+RUS_Soldier1	Spetsnaz Operator	
+RUS_Soldier2	Spetsnaz Operator (SD)	
+RUS_Soldier3	Spetsnaz Scout	
+RUS_Soldier_GL	Spetsnaz Assaultman	
+RUS_Soldier_Marksman	Spetsnaz Marksman	
+RUS_Soldier_Sab	Saboteur	
+RUS_Soldier_TL	Spetsnaz Team Leader	
+MVD_Soldier	Operator	
+MVD_Soldier_AT	Operator (RPG-7)	
+MVD_Soldier_GL	Operator (GL)	
+MVD_Soldier_MG	Machinegunner	
+MVD_Soldier_Marksman	Marksman	
+MVD_Soldier_Sniper	Sniper	
+MVD_Soldier_TL	Operator	
+INS_Lopotev	Lopotev	
+INS_Bardak	Bardak	
+INS_Commander	Commander	
+INS_Soldier_1	Rifleman	
+INS_Soldier_2	Rifleman (AK-47)	
+INS_Soldier_AA	AA Specialist	
+INS_Soldier_AR	Automatic Rifleman	
+INS_Soldier_AT	AT Specialist	
+INS_Soldier_CO	Officer	
+INS_Soldier_Crew	Crewman	
+INS_Soldier_GL	Grenadier	
+INS_Soldier_MG	Machinegunner	
+INS_Soldier_Medic	Medic	
+INS_Soldier_Pilot	Pilot	
+INS_Soldier_Sab	Saboteur	
+INS_Soldier_Sapper	Sapper	
+INS_Soldier_Sniper	Sniper	
+INS_Villager3	Farmer	
+INS_Villager4	Villager	
+INS_Woodlander1	Woodman	
+INS_Woodlander2	Gamekeeper	
+INS_Woodlander3	Forester	
+INS_Worker1	Local	
+GUE_Soldier_3	Rifleman	
+GUE_Soldier_1	Rifleman (AKSU)	
+GUE_Commander	Warlord	
+GUE_Soldier_2	Rifleman (AKM)	
+GUE_Soldier_AA	AA Specialist	
+GUE_Soldier_AR	Automatic Rifleman	
+GUE_Soldier_AT	AT Specialist	
+GUE_Soldier_CO	Officer	
+GUE_Soldier_Crew	Crewman	
+GUE_Soldier_GL	Grenadier	
+GUE_Soldier_MG	Machinegunner	
+GUE_Soldier_Medic	Medic	
+GUE_Soldier_Pilot	Pilot	
+GUE_Soldier_Sab	Saboteur	
+GUE_Soldier_Scout	Scout	
+GUE_Soldier_Sniper	Sniper	
+GUE_Villager3	Farmer	
+GUE_Villager4	Villager	
+GUE_Woodlander1	Woodman	
+GUE_Woodlander2	Gamekeeper	
+GUE_Woodlander3	Forester	
+GUE_Worker1	Local	
+Assistant	Assistant	
+RU_Assistant	Assistant
+Citizen1	Citizen (Brown)	
+Citizen2	Citizen (Blue)
+Citizen3	Citizen (Gray)
+Citizen4	Citizen (Green)
+RU_Citizen1	Citizen (Brown)
+RU_Citizen2	Citizen (Blue)
+RU_Citizen3	Citizen (Gray)
+RU_Citizen4	Citizen (Green)
+Priest	Priest	
+RU_Priest	Priest
+Pilot	Pilot	
+RU_Pilot	Pilot
+Policeman	Policeman	
+RU_Policeman	Policeman
+Doctor	Doctor	
+RU_Doctor	Doctor
+Teacher	Teacher	
+RU_Teacher	Teacher
+Functionary1	Functionary (Brown)	
+Functionary2	Functionary (Black)
+RU_Functionary1	Functionary (Brown)
+RU_Functionary2	Functionary (Black)
+Rocker1	Rocker (black)	
+Rocker2	Functionary (brown)
+Rocker3	Functionary (blue)
+Rocker4	Functionary (green)
+RU_Rocker1	Functionary (black)
+RU_Rocker2	Functionary (brown)
+RU_Rocker3	Functionary (blue)
+RU_Rocker4	Functionary (green)
+Profiteer1	Profiteer (gray)	
+Profiteer2	Profiteer (blue)
+Profiteer3	Profiteer (brown)
+Profiteer4	Profiteer (red)
+RU_Profiteer1	Profiteer (gray)
+RU_Profiteer2	Profiteer (blue)
+RU_Profiteer3	Profiteer (brown)
+RU_Profiteer4	Profiteer (red)
+Villager1	Villager (blue check)	
+Villager2	Villager (green check)
+Villager3	Villager (green)
+Villager4	Villager (blue)
+RU_Villager1	Villager (blue check)
+RU_Villager2	Villager (green check)
+RU_Villager3	Villager (green)
+RU_Villager4	Villager (blue)
+Woodlander1	Woodlander	
+Woodlander2	Woodlander (blue)
+Woodlander3	Woodlander (brown)
+Woodlander4	Woodlander (camo)
+RU_Woodlander1	Woodlander (blue)
+RU_Woodlander2	Woodlander (brown)
+RU_Woodlander3	Woodlander (camo)
+RU_Woodlander4	Woodlander (green)
+Worker1	Worker	
+Worker2	Worker (Gray)
+Worker3	Worker (Green)
+Worker4	Worker (Blue)
+RU_Worker1	Worker (Gray)
+RU_Worker2	Worker (Green)
+RU_Worker3	Worker (Blue)
+RU_Worker4	Worker (Brown)
+Secretary1	Secretary	
+Secretary2	Secretary
+Secretary3	Secretary
+Secretary4	Secretary
+RU_Secretary1	Secretary
+RU_Secretary2	Secretary
+RU_Secretary3	Secretary
+RU_Secretary4	Secretary
+Damsel1	Damsel	
+Damsel2	Damsel
+Damsel3	Damsel
+Damsel4	Damsel
+RU_Damsel1	Damsel
+RU_Damsel2	Damsel
+RU_Damsel3	Damsel
+RU_Damsel4	Damsel
+Hooker1	Hooker	
+Hooker2	Hooker
+Hooker3	Hooker
+Hooker4	Hooker
+RU_Hooker1	Hooker
+RU_Hooker2	Hooker
+RU_Hooker3	Hooker
+RU_Hooker4	Hooker
+Madam1	Madam	
+Madam2	Madam
+Madam3	Madam
+Madam4	Madam
+RU_Madam1	Madam
+RU_Madam2	Madam
+RU_Madam3	Madam
+RU_Madam4	Madam
+WorkWoman1	Work woman	
+WorkWoman2	Work woman
+WorkWoman3	Work woman
+WorkWoman4	Work woman
+RU_WorkWoman1	Work woman
+RU_WorkWoman2	Work woman
+RU_WorkWoman3	Work woman
+RU_WorkWoman4	Work woman
+HouseWife1	Houswife	
+HouseWife2	Houswife
+HouseWife3	Houswife
+HouseWife4	Houswife
+RU_HouseWife1	Houswife
+RU_HouseWife2	Houswife
+RU_HouseWife3	Houswife
+RU_HouseWife4	Houswife
+Farmwife1	Farmwife	
+Farmwife2	Farmwife
+Farmwife3	Farmwife
+Farmwife4	Farmwife
+RU_Farmwife1	Farmwife
+RU_Farmwife2	Farmwife
+RU_Farmwife3	Farmwife
+RU_Farmwife4	Farmwife
+Sportswoman1	Sportswoman	
+Sportswoman2	Sportswoman
+Sportswoman3	Sportswoman
+Sportswoman4	Sportswoman
+RU_Sportswoman1	Sportswoman
+RU_Sportswoman2	Sportswoman
+RU_Sportswoman3	Sportswoman
+RU_Sportswoman4	Sportswoman
