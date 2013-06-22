@@ -26,12 +26,17 @@ class SQMParser {
     }
 
     public static function parseFile($file) {
-        $sqmFile = new SQMFile($file);
+        $sqmFile = new SQMFile($file,SQMFile::INPUTTYPE_FILENAME);
         return $sqmFile;
     }
 
     public static function parseStream($stream) {
-        $sqmFile = new SQMFile($stream);
+        $sqmFile = new SQMFile($stream,SQMFile::INPUTTYPE_RESSOURCE);
+        return $sqmFile;
+    }
+
+    public static function parseString($stream) {
+        $sqmFile = new SQMFile($stream,SQMFile::INPUTTYPE_STRING);
         return $sqmFile;
     }
 
