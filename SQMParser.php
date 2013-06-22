@@ -19,7 +19,7 @@ class SQMParser {
 
     protected function __construct($sqmFile)
     {
-        $this->tokens = SQMLexer::run($sqmFile->content);
+        $this->tokens = array_reverse(SQMLexer::run($sqmFile->content));
         $this->parsedData = array();
     }
 
@@ -166,7 +166,8 @@ class SQMParser {
     }
 
     protected function _tokenLookAhead($index) {
-        if (count($this->tokens) < $index+1) {
+        $index = count($this->tokens)-$index-1;
+        if ($index < 0) {
             throw new Exception("Tokenstream ended before it was supposed to end while looking ahead for tokens.");
         }
         return $this->tokens[$index];
@@ -177,7 +178,7 @@ class SQMParser {
             throw new Exception("Tokenstream ended before it was supposed to end while consuming tokens.");
         }
         while ($count > 0) {
-            array_shift($this->tokens);
+            unset($this->tokens[count($this->tokens)-1]);
             $count--;
         }
     }
