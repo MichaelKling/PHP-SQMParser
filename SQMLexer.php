@@ -60,7 +60,7 @@ class SQMLexer
                 if ($result['token'] != SQMLexer::T_SPACE) {
                     $tokens[] = $result;
                 }
-                $length = strlen($result['match']);
+                $length = $result['chars'];
                 $line = substr($line, $length);
                 $offset += $length;
             }
@@ -73,87 +73,124 @@ class SQMLexer
 
     protected static function _match($string, $number) {
         //Try first fix matches:
-        //same as space for regex: HT (9), LF (10), VT (11), FF (12), CR (13), and space (32)
-        if ($string[0] == "=") {
-            return array(
-                'match' => "=",
-                'token' => SQMLexer::T_ASSIGNMENT,
-                'line' => $number+1
-            );
-        }
+        switch ($string[0]) {
+            case "=":
+                    return array(
+                        'chars' => 1,
+                        'token' => SQMLexer::T_ASSIGNMENT,
+                        'line' => $number+1
+                    );
+                    break;
+            case "{":
+                    return array(
+                        'chars' => 1,
+                        'token' => SQMLexer::T_BLOCKSTART,
+                        'line' => $number+1
+                    );
+                    break;
+            case "}":
+                    return array(
+                        'chars' => 1,
+                        'token' => SQMLexer::T_BLOCKEND,
+                        'line' => $number+1
+                    );
+                    break;
 
-        if ($string[0] == "{") {
-            return array(
-                'match' => "{",
-                'token' => SQMLexer::T_BLOCKSTART,
-                'line' => $number+1
-            );
-        }
+            case ",":
+                    return array(
+                        'chars' => 1,
+                        'token' => SQMLexer::T_COMMA,
+                        'line' => $number+1
+                    );
+                    break;
 
-        if ($string[0] == "}") {
-            return array(
-                'match' => "}",
-                'token' => SQMLexer::T_BLOCKEND,
-                'line' => $number+1
-            );
-        }
+            case ";":
+                    return array(
+                        'chars' => 1,
+                        'token' => SQMLexer::T_SEMICOLON,
+                        'line' => $number+1
+                    );
+                    break;
 
-        if ($string[0] == ",") {
-            return array(
-                'match' => "}",
-                'token' => SQMLexer::T_COMMA,
-                'line' => $number+1
-            );
-        }
-
-        if ($string[0] == ";") {
-            return array(
-                'match' => "}",
-                'token' => SQMLexer::T_SEMICOLON,
-                'line' => $number+1
-            );
-        }
-
-        if ($string[0] == "[" && $string[1] == "]") {
-            return array(
-                'match' => "[]",
-                'token' => SQMLexer::T_ARRAY,
-                'line' => $number+1
-            );
-        }
-
-        if ($string[0] == "c" && $string[1] == "l" && $string[2] == "a" && $string[3] == "s" && $string[4] == "s") {
-            return array(
-                'match' => "class",
-                'token' => SQMLexer::T_CLASS,
-                'line' => $number+1
-            );
-        }
-
-        foreach(SQMLexer::$_tokens as $pattern => $name) {
-
-            if ($name == SQMLexer::T_STRING) {
-                //The escape sequence is very similar to the string end and generates therefore a huge stack using preg_match...
-                if ($string != "") {
-                    $string = str_replace('""','ESCAPEDSTRING2l215ll123IOh3',$string);
-                }
-            }
-            if(preg_match($pattern, $string, $matches)) {
-                if ($name == SQMLexer::T_STRING) {
-                    //The escape sequence is very similar to the string end and generates therefore a huge stack using preg_match...
-                    //Also deleting string quotes, as we directly overtake this as a php string
-                    if ($matches[1] != "") {
-                        $matches[1] = str_replace('ESCAPEDSTRING2l215ll123IOh3','""',$matches[1]);
+            case "[":
+                    if ($string[1] == "]") {
+                        return array(
+                            'chars' => 2,
+                            'token' => SQMLexer::T_ARRAY,
+                            'line' => $number+1
+                        );
                     }
+                    break;
+            case "c":
+                if ($string[1] == "l" && $string[2] == "a" && $string[3] == "s" && $string[4] == "s") {
+                    return array(
+                        'chars' => 5,
+                        'token' => SQMLexer::T_CLASS,
+                        'line' => $number+1
+                    );
                 }
-                return array(
-                    'match' => $matches[1],
-                    'token' => $name,
-                    'line' => $number+1
-                );
-            }
+                break;
+            case "0":
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+            case ".":
+            case "-":
+            case "+":
+                if (preg_match("/^([-+]?(([0-9]*)\.([0-9]+)))/S", $string, $matches)) {
+                    return array(
+                        'match' => (float)($matches[1]),
+                        'chars' => strlen($matches[1]),
+                        'token' => SQMLexer::T_FLOAT,
+                        'line' => $number+1
+                    );
+                }
+                if (preg_match("/^([-+]?([0-9]+))/S", $string, $matches)) {
+                    return array(
+                        'match' => (int)($matches[1]),
+                        'chars' => strlen($matches[1]),
+                        'token' => SQMLexer::T_INTEGER,
+                        'line' => $number+1
+                    );
+                }
+               break;
+            case "\"":
+                if ($string != "\"\"") {
+                    $string = str_replace('""','XX',$string);
+                }
+                if (preg_match('/^"(.*)"/S', $string, $matches)) {
+                    return array(
+                        'match' => $matches[1],
+                        'chars' => strlen($matches[1])+2,
+                        'token' => SQMLexer::T_STRING,
+                        'line' => $number+1
+                    );
+                }
+                break;
+            default:
+                if (preg_match("/^(\s+)/S", $string, $matches)) {
+                    return array(
+                        'chars' => strlen($matches[1]),
+                        'token' => SQMLexer::T_SPACE,
+                        'line' => $number+1
+                    );
+                }
+                if (preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*)/S", $string, $matches)) {
+                    return array(
+                        'match' => $matches[1],
+                        'chars' => strlen($matches[1]),
+                        'token' => SQMLexer::T_IDENTIFIER,
+                        'line' => $number+1
+                    );
+                }
+                break;
         }
-
         return false;
     }
 }

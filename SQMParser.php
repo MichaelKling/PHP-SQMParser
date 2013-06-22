@@ -15,11 +15,13 @@ require_once SQMPARSER_BASE . 'SQMPlayerParser.php';
 
 class SQMParser {
     private $tokens = array();
+    private $tokenSize = 0;
     private $parsedData = array();
 
     protected function __construct($sqmFile)
     {
         $this->tokens = array_reverse(SQMLexer::run($sqmFile->content));
+        $this->tokenSize = count($this->tokens);
         $this->parsedData = array();
     }
 
@@ -43,7 +45,7 @@ class SQMParser {
         //Expect list of Definition Items
         do {
             $this->_parseDefinition($this->parsedData);
-        } while (!empty($this->tokens));
+        } while ($this->tokenSize);
     }
 
 
@@ -159,14 +161,14 @@ class SQMParser {
                 break;
             case SQMLexer::T_STRING:
                 $this->_consumeTokens(1);
-                $parentElement = substr(str_replace('""','"',$nextToken['match']),1,-1);
+                $parentElement = $nextToken['match'];
                 break;
             default: throw new Exception("Next token is not allowed: ".SQMLexer::tokenToName($nextToken['token']).": ".$nextToken['match']." at line ".$nextToken['line'].".");;
         }
     }
 
     protected function _tokenLookAhead($index) {
-        $index = count($this->tokens)-$index-1;
+        $index = $this->tokenSize-$index-1;
         if ($index < 0) {
             throw new Exception("Tokenstream ended before it was supposed to end while looking ahead for tokens.");
         }
@@ -174,13 +176,10 @@ class SQMParser {
     }
 
     protected function _consumeTokens($count) {
-        if (count($this->tokens) < $count) {
+        if ($this->tokenSize < $count) {
             throw new Exception("Tokenstream ended before it was supposed to end while consuming tokens.");
         }
-        while ($count > 0) {
-            unset($this->tokens[count($this->tokens)-1]);
-            $count--;
-        }
+        $this->tokenSize -= $count;
     }
 
 
