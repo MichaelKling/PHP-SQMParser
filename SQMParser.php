@@ -19,12 +19,17 @@ class SQMParser {
 
     protected function __construct($sqmFile)
     {
-        $this->tokens = SQMLexer::run($sqmFile->rawData);
+        $this->tokens = SQMLexer::run($sqmFile->content);
         $this->parsedData = array();
     }
 
     public static function parseFile($file) {
         $sqmFile = new SQMFile($file);
+        return $sqmFile;
+    }
+
+    public static function parseStream($stream) {
+        $sqmFile = new SQMFile($stream);
         return $sqmFile;
     }
 

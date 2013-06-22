@@ -22,13 +22,10 @@ class SQMLexer
         '/^(".*")/' => "T_STRING",
     );
     public static function run($source) {
-        if (is_string($source)) {
-            $source = explode("\n", $source);
-        }
+         $tokens = array();
 
-        $tokens = array();
-
-        foreach($source as $number => $line) {
+        $number = 0;
+        while (($line = fgets($source))) {
             $offset = 0;
 
             while($offset < strlen($line)) {
@@ -41,6 +38,8 @@ class SQMLexer
                 }
                 $offset += strlen($result['match']);
             }
+
+            $number++;
         }
 
         return $tokens;
