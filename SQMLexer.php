@@ -22,13 +22,6 @@ class SQMLexer
 
     protected static $_tokens = array(
         "/^(\s+)/" => SQMLexer::T_SPACE,
-        "/^(class)/" => SQMLexer::T_CLASS,
-        "/^(=)/" => SQMLexer::T_ASSIGNMENT,
-        "/^({)/" => SQMLexer::T_BLOCKSTART,
-        "/^(})/" => SQMLexer::T_BLOCKEND,
-        "/^(\[\])/" => SQMLexer::T_ARRAY,
-        "/^(,)/" => SQMLexer::T_COMMA,
-        "/^(;)/" => SQMLexer::T_SEMICOLON,
         "/^([a-zA-Z_][a-zA-Z0-9_]*)/" => SQMLexer::T_IDENTIFIER,
         "/^([-+]?(([0-9]*)\.([0-9]+)))/" => SQMLexer::T_FLOAT,
         "/^([-+]?([0-9]+))/" => SQMLexer::T_INTEGER,
@@ -37,18 +30,18 @@ class SQMLexer
 
     public static function tokenToName($token) {
         switch ($token) {
-            case T_SPACE : "T_SPACE"; break;
-            case T_CLASS : "T_CLASS"; break;
-            case T_ASSIGNMENT : "T_ASSIGNMENT"; break;
-            case T_BLOCKSTART : "T_BLOCKEND"; break;
-            case T_BLOCKEND : "T_BLOCKEND"; break;
-            case T_ARRAY : "T_ARRAY"; break;
-            case T_COMMA : "T_COMMA"; break;
-            case T_SEMICOLON : "T_SEMICOLON"; break;
-            case T_IDENTIFIER : "T_IDENTIFIER"; break;
-            case T_FLOAT : "T_FLOAT"; break;
-            case T_INTEGER : "T_INTEGER"; break;
-            case T_STRING : "T_STRING"; break;
+            case SQMLexer::T_SPACE : "T_SPACE"; break;
+            case SQMLexer::T_CLASS : "T_CLASS"; break;
+            case SQMLexer::T_ASSIGNMENT : "T_ASSIGNMENT"; break;
+            case SQMLexer::T_BLOCKSTART : "T_BLOCKEND"; break;
+            case SQMLexer::T_BLOCKEND : "T_BLOCKEND"; break;
+            case SQMLexer::T_ARRAY : "T_ARRAY"; break;
+            case SQMLexer::T_COMMA : "T_COMMA"; break;
+            case SQMLexer::T_SEMICOLON : "T_SEMICOLON"; break;
+            case SQMLexer::T_IDENTIFIER : "T_IDENTIFIER"; break;
+            case SQMLexer::T_FLOAT : "T_FLOAT"; break;
+            case SQMLexer::T_INTEGER : "T_INTEGER"; break;
+            case SQMLexer::T_STRING : "T_STRING"; break;
         }
     }
 
@@ -58,16 +51,18 @@ class SQMLexer
         $number = 0;
         while (($line = fgets($source))) {
             $offset = 0;
-
-            while($offset < strlen($line)) {
-                $result = static::_match($line, $number, $offset);
+            $lineLength = strlen($line);
+            while($offset < $lineLength) {
+                $result = SQMLexer::_match($line, $number, $offset);
                 if($result === false) {
-                    throw new Exception("Unable to parse line " . ($number+1) . ":$offset near \"$line\" at ". substr($line, $offset) .".");
+                    throw new Exception("Unable to parse line " . ($number+1) . ":$offset near \"$line\".");
                 }
                 if ($result['token'] != SQMLexer::T_SPACE) {
                     $tokens[] = $result;
                 }
-                $offset += strlen($result['match']);
+                $length = strlen($result['match']);
+                $line = substr($line, $length);
+                $offset += $length;
             }
 
             $number++;
@@ -76,10 +71,66 @@ class SQMLexer
         return $tokens;
     }
 
-    protected static function _match($line, $number, $offset) {
-        $string = substr($line, $offset);
+    protected static function _match($string, $number) {
+        //Try first fix matches:
+        //same as space for regex: HT (9), LF (10), VT (11), FF (12), CR (13), and space (32)
+        if ($string[0] == "=") {
+            return array(
+                'match' => "=",
+                'token' => SQMLexer::T_ASSIGNMENT,
+                'line' => $number+1
+            );
+        }
 
-        foreach(static::$_tokens as $pattern => $name) {
+        if ($string[0] == "{") {
+            return array(
+                'match' => "{",
+                'token' => SQMLexer::T_BLOCKSTART,
+                'line' => $number+1
+            );
+        }
+
+        if ($string[0] == "}") {
+            return array(
+                'match' => "}",
+                'token' => SQMLexer::T_BLOCKEND,
+                'line' => $number+1
+            );
+        }
+
+        if ($string[0] == ",") {
+            return array(
+                'match' => "}",
+                'token' => SQMLexer::T_COMMA,
+                'line' => $number+1
+            );
+        }
+
+        if ($string[0] == ";") {
+            return array(
+                'match' => "}",
+                'token' => SQMLexer::T_SEMICOLON,
+                'line' => $number+1
+            );
+        }
+
+        if ($string[0] == "[" && $string[1] == "]") {
+            return array(
+                'match' => "[]",
+                'token' => SQMLexer::T_ARRAY,
+                'line' => $number+1
+            );
+        }
+
+        if ($string[0] == "c" && $string[1] == "l" && $string[2] == "a" && $string[3] == "s" && $string[4] == "s") {
+            return array(
+                'match' => "class",
+                'token' => SQMLexer::T_CLASS,
+                'line' => $number+1
+            );
+        }
+
+        foreach(SQMLexer::$_tokens as $pattern => $name) {
 
             if ($name == SQMLexer::T_STRING) {
                 //The escape sequence is very similar to the string end and generates therefore a huge stack using preg_match...
