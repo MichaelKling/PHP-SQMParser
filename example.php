@@ -8,11 +8,11 @@
 
 include "SQMParser.php";
 
-echo xdebug_get_profiler_filename()."<br>";
+
 $now = microtime(true);
 printf("MEM:  %d<br/>\nPEAK: %d<br/>\n", memory_get_usage(), memory_get_peak_usage());
 
-$sqmFile = SQMParser::parseFile("./test/mission1.sqm");
+$sqmFile = SQMParser::parseFile("./test/mission2.sqm");
 $sqmFile->parse();
 
 $then = microtime(true);
