@@ -6,8 +6,8 @@
  * Time: 08:54
  */
 
-include "SQMParser.php";
-
+//include "SQMParser.php";
+include "SQMFastParser.php";
 
 $now = microtime(true);
 printf("MEM:  %d<br/>\nPEAK: %d<br/>\n", memory_get_usage(), memory_get_peak_usage());

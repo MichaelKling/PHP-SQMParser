@@ -16,12 +16,17 @@ class SQMLexer
     private static $line = false;
     private static $lineLength = 0;
 
-    public static function init($source) {
-        SQMLexer::$source = $source;
+    public static function reset() {
+        SQMLexer::$source = null;
         SQMLexer::$lineNumber = 0;
         SQMLexer::$line = false;
         SQMLexer::$lineOffset = 0;
         SQMLexer::$lineLength = 0;
+    }
+
+    public static function init($source) {
+        SQMLexer::reset();
+        SQMLexer::$source = $source;
     }
 
     public static function isEOF() {

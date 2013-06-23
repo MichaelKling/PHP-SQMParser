@@ -7,7 +7,6 @@
  */
 class SQMTokenItem
 {
-    const T_SPACE = T_WHITESPACE;
     const T_CLASS = T_CLASS;
     const T_ASSIGNMENT = "=";
     const T_BLOCKSTART = "{";
@@ -19,6 +18,12 @@ class SQMTokenItem
     const T_FLOAT = T_DNUMBER;
     const T_INTEGER = T_LNUMBER;
     const T_STRING = T_CONSTANT_ENCAPSED_STRING;
+
+    //This tokens will be eliminated by the parser
+    const T_MINUS = "-";
+    const T_SPACE = T_WHITESPACE;
+    const T_ARRAYSTART = "[";
+    const T_ARRAYEND = "]";
 
     const INDEX_TOKEN = 0;
     const INDEX_MATCH = 1;
