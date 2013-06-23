@@ -15,16 +15,20 @@ require_once SQMPARSER_BASE . 'SQMPlayerParser.php';
 
 class SQMParser {
     const LOOKUP_BUFFER_MAX_SIZE = 3;
-    private $tokenCount = 0;
-    private $tokenLookAheadRingBuffer = array();
-    private $tokenLookAheadRingBufferPosition = 0;
-    private $parsedData = array();
+    private static $tokenCount = 0;
+    private static $tokenLookAheadRingBuffer = array();
+    private static $tokenLookAheadRingBufferPosition = 0;
+    private static $parsedData = array();
 
-    protected function __construct($sqmFile)
+    protected static function construct($sqmFile)
     {
+        SQMParser::$tokenCount = 0;
+        SQMParser::$tokenLookAheadRingBuffer = array();
         for ($i = 0;$i < SQMParser::LOOKUP_BUFFER_MAX_SIZE;++$i) {
-            $this->tokenLookAheadRingBuffer[$i] = false;
+            SQMParser::$tokenLookAheadRingBuffer[$i] = false;
         }
+        SQMParser::$tokenLookAheadRingBufferPosition = 0;
+        SQMParser::$parsedData = array();
         SQMLexer::init($sqmFile->content);
     }
 
@@ -44,177 +48,177 @@ class SQMParser {
     }
 
     public static function parse($sqmFile) {
-        $parser = new SQMParser($sqmFile);
-        $parser->_run();
-        return $parser->parsedData;
+        SQMParser::construct($sqmFile);
+        SQMParser::_run();
+        return SQMParser::$parsedData;
     }
 
-    protected function _run() {
+    protected static function _run() {
         //Expect list of Definition Items
         do {
-            $this->_parseRootDefition($this->parsedData);
+            SQMParser::_parseRootDefition(SQMParser::$parsedData);
         } while (!SQMLexer::isEOF());
     }
 
 
-    protected function _parseRootDefition(&$parentElement) {
+    protected static function _parseRootDefition(&$parentElement) {
         //Switch between Class, Assignment
         try {
-            $nextToken = $this->_tokenLookAhead(0);
+            $nextToken = SQMParser::_tokenLookAhead(0);
         } catch (Exception $e) {
             //Only the root definition list should handle the end of the stream.
             return;
         }
         switch ($nextToken->token) {
-            case SQMTokenItem::T_CLASS: $this->_parseClass($parentElement);
+            case SQMTokenItem::T_CLASS: SQMParser::_parseClass($parentElement);
                 break;
             case SQMTokenItem::T_IDENTIFIER:
-                $this->_parseAssignment($parentElement);
+                SQMParser::_parseAssignment($parentElement);
                 break;
             default: throw new Exception("Next token is not allowed: ".$nextToken->tokenToName().": ".$nextToken->match." at line ".$nextToken->line.".");;
         }
 
-        $nextToken = $this->_tokenLookAhead(0);
+        $nextToken = SQMParser::_tokenLookAhead(0);
         if ($nextToken->token != SQMTokenItem::T_SEMICOLON) {
             throw new Exception("Expected T_SEMICOLON, got ".$nextToken->tokenToName().": ".$nextToken->match." at line ".$nextToken->line.".");
         } else {
-            $this->_consumeTokens(1);
+            SQMParser::_consumeTokens(1);
         }
     }
 
-    protected function _parseDefinition(&$parentElement) {
+    protected static function _parseDefinition(&$parentElement) {
         //Switch between Class, Assignment
-        $nextToken = $this->_tokenLookAhead(0);
+        $nextToken = SQMParser::_tokenLookAhead(0);
         switch ($nextToken->token) {
-            case SQMTokenItem::T_CLASS: $this->_parseClass($parentElement);
+            case SQMTokenItem::T_CLASS: SQMParser::_parseClass($parentElement);
                             break;
             case SQMTokenItem::T_IDENTIFIER:
-                $this->_parseAssignment($parentElement);
+                SQMParser::_parseAssignment($parentElement);
                 break;
             default: throw new Exception("Next token is not allowed: ".$nextToken->tokenToName().": ".$nextToken->match." at line ".$nextToken->line.".");;
         }
 
-        $nextToken = $this->_tokenLookAhead(0);
+        $nextToken = SQMParser::_tokenLookAhead(0);
         if ($nextToken->token != SQMTokenItem::T_SEMICOLON) {
             throw new Exception("Expected T_SEMICOLON, got ".$nextToken->tokenToName().": ".$nextToken->match." at line ".$nextToken->line.".");
         } else {
-            $this->_consumeTokens(1);
+            SQMParser::_consumeTokens(1);
         }
     }
 
-    protected function _parseAssignment(&$parentElement) {
+    protected static function _parseAssignment(&$parentElement) {
         //<identifier> [<arrayLiteral>] <assignmentLiteral> [<value>|<valueList>]
-        $nextToken = $this->_tokenLookAhead(0);
-        $nextToken2 = $this->_tokenLookAhead(1);
-        $nextToken3 = $this->_tokenLookAhead(2);
+        $nextToken = SQMParser::_tokenLookAhead(0);
+        $nextToken2 = SQMParser::_tokenLookAhead(1);
+        $nextToken3 = SQMParser::_tokenLookAhead(2);
 
         if ($nextToken->token == SQMTokenItem::T_IDENTIFIER && $nextToken2->token == SQMTokenItem::T_ASSIGNMENT) {
             $parentElement[$nextToken->match] = null;
-            $this->_consumeTokens(2);
+            SQMParser::_consumeTokens(2);
 
-            $this->_parseValue($parentElement[$nextToken->match]);
+            SQMParser::_parseValue($parentElement[$nextToken->match]);
         } else if ($nextToken->token == SQMTokenItem::T_IDENTIFIER && $nextToken2->token == SQMTokenItem::T_ARRAY && $nextToken3->token == SQMTokenItem::T_ASSIGNMENT) {
             $parentElement[$nextToken->match] = null;
-            $this->_consumeTokens(3);
+            SQMParser::_consumeTokens(3);
 
-            $this->_parseValueList($parentElement[$nextToken->match]);
+            SQMParser::_parseValueList($parentElement[$nextToken->match]);
         } else {
             throw new Exception("Next token set is not allowed: ".$nextToken->tokenToName().": ".$nextToken->match." at line ".$nextToken->line.".");;
         }
     }
 
-    protected function _parseClass(&$parentElement) {
+    protected static function _parseClass(&$parentElement) {
         $classname = null;
 
-        $nextToken = $this->_tokenLookAhead(0);
+        $nextToken = SQMParser::_tokenLookAhead(0);
         if ($nextToken->token != SQMTokenItem::T_CLASS) {
             throw new Exception("Expected T_CLASS, got ".($nextToken->tokenToName()).": ".$nextToken->match." at line ".$nextToken->line.".");
         }
-        $this->_consumeTokens(1);
+        SQMParser::_consumeTokens(1);
 
-        $nextToken = $this->_tokenLookAhead(0);
+        $nextToken = SQMParser::_tokenLookAhead(0);
         if ($nextToken->token != SQMTokenItem::T_IDENTIFIER) {
             throw new Exception("Expected T_IDENTIFIER, got ".($nextToken->tokenToName()).": ".$nextToken->match." at line ".$nextToken->line.".");
         }
-        $this->_consumeTokens(1);
+        SQMParser::_consumeTokens(1);
 
         $classname = $nextToken->match;
 
         $parentElement[$classname] = null;
 
-        $nextToken = $this->_tokenLookAhead(0);
+        $nextToken = SQMParser::_tokenLookAhead(0);
         if ($nextToken->token != SQMTokenItem::T_BLOCKSTART) {
             throw new Exception("Expected T_BLOCKSTART, got ".($nextToken->tokenToName()).": ".$nextToken->match." at line ".$nextToken->line.".");
         }
-        $this->_consumeTokens(1);
+        SQMParser::_consumeTokens(1);
 
-        $nextToken = $this->_tokenLookAhead(0);
+        $nextToken = SQMParser::_tokenLookAhead(0);
         while ($nextToken->token != SQMTokenItem::T_BLOCKEND) {
-                $this->_parseDefinition($parentElement[$classname]);
-                $nextToken = $this->_tokenLookAhead(0);
+                SQMParser::_parseDefinition($parentElement[$classname]);
+                $nextToken = SQMParser::_tokenLookAhead(0);
         }
-        $this->_consumeTokens(1);
+        SQMParser::_consumeTokens(1);
 
         $parentElement[$classname] = (object)$parentElement[$classname];
         return;
     }
 
-    protected function _parseValueList(&$parentElement) {
-        $nextToken = $this->_tokenLookAhead(0);
+    protected static function _parseValueList(&$parentElement) {
+        $nextToken = SQMParser::_tokenLookAhead(0);
         if ($nextToken->token != SQMTokenItem::T_BLOCKSTART) {
             throw new Exception("Expected T_BLOCKSTART, got ".($nextToken->tokenToName()).": ".$nextToken->match." at line ".$nextToken->line.".");
         }
-        $this->_consumeTokens(1);
+        SQMParser::_consumeTokens(1);
 
         $parentElement = array();
 
-        $nextToken = $this->_tokenLookAhead(0);
+        $nextToken = SQMParser::_tokenLookAhead(0);
         while ($nextToken->token != SQMTokenItem::T_BLOCKEND) {
             $element = null;
-            $this->_parseValue($element);
+            SQMParser::_parseValue($element);
             $parentElement[] = $element;
 
-            $nextToken = $this->_tokenLookAhead(0);
+            $nextToken = SQMParser::_tokenLookAhead(0);
             if ($nextToken->token == SQMTokenItem::T_COMMA) {
-                $this->_consumeTokens(1);
-                $nextToken = $this->_tokenLookAhead(0);
+                SQMParser::_consumeTokens(1);
+                $nextToken = SQMParser::_tokenLookAhead(0);
             }
         }
-        $this->_consumeTokens(1);
+        SQMParser::_consumeTokens(1);
     }
 
-    protected function _parseValue(&$parentElement) {
+    protected static function _parseValue(&$parentElement) {
         //<string>|<float>|<integer>
-        $nextToken = $this->_tokenLookAhead(0);
+        $nextToken = SQMParser::_tokenLookAhead(0);
         switch ($nextToken->token) {
             case SQMTokenItem::T_INTEGER:
             case SQMTokenItem::T_FLOAT:
-                $this->_consumeTokens(1);
+                SQMParser::_consumeTokens(1);
                 $parentElement = $nextToken->match;
                 break;
             case SQMTokenItem::T_STRING:
-                $this->_consumeTokens(1);
+                SQMParser::_consumeTokens(1);
                 $parentElement = $nextToken->match;
                 break;
             default: throw new Exception("Next token is not allowed: ".($nextToken->tokenToName()).": ".$nextToken->match." at line ".$nextToken->line.".");;
         }
     }
 
-    protected function _tokenLookAhead($index) {
+    protected static function _tokenLookAhead($index) {
         $token = null;
         if ($index > 2) {
             throw new Exception("Tried to lookup ".($index+1)." items - lookup buffer is only ".SQMParser::LOOKUP_BUFFER_MAX_SIZE." items big.");
-        } else if ($index < $this->tokenCount) {
-            $token = $this->tokenLookAheadRingBuffer[($this->tokenLookAheadRingBufferPosition + $index) % SQMParser::LOOKUP_BUFFER_MAX_SIZE];
+        } else if ($index < SQMParser::$tokenCount) {
+            $token = SQMParser::$tokenLookAheadRingBuffer[(SQMParser::$tokenLookAheadRingBufferPosition + $index) % SQMParser::LOOKUP_BUFFER_MAX_SIZE];
         } else /*if ($index >= $this->tokenCount)*/ {
-            $index -= $this->tokenCount-1;
+            $index -= SQMParser::$tokenCount-1;
             while ($index) {
                 $token = SQMLexer::getNextToken();
                 if (!$token) {
                     throw new Exception("Tokenstream ended before it was supposed to end while looking ahead for tokens.");
                 }
-                $this->tokenLookAheadRingBuffer[($this->tokenLookAheadRingBufferPosition + $this->tokenCount) % SQMParser::LOOKUP_BUFFER_MAX_SIZE] = $token;
-                ++$this->tokenCount;
+                SQMParser::$tokenLookAheadRingBuffer[(SQMParser::$tokenLookAheadRingBufferPosition + SQMParser::$tokenCount) % SQMParser::LOOKUP_BUFFER_MAX_SIZE] = $token;
+                ++SQMParser::$tokenCount;
                 --$index;
             }
         }
@@ -226,14 +230,14 @@ class SQMParser {
         return $token;
     }
 
-    protected function _consumeTokens($count) {
-        if ($this->tokenCount == $count) {
+    protected static function _consumeTokens($count) {
+        if (SQMParser::$tokenCount == $count) {
             //Just declare the size to 0
-            $this->tokenCount = 0;
-        } else if ($this->tokenCount < $count) {
+            SQMParser::$tokenCount = 0;
+        } else if (SQMParser::$tokenCount < $count) {
             //We have less tokens then we want to consume. Declare size to 0 and read the missing ones
-            $count -= $this->tokenCount;
-            $this->tokenCount = 0;
+            $count -= SQMParser::$tokenCount;
+            SQMParser::$tokenCount = 0;
             while ($count) {
                 if (SQMLexer::getNextToken() === false) {
                     throw new Exception("Tokenstream ended before it was supposed to end while consuming tokens.");
@@ -242,8 +246,8 @@ class SQMParser {
             }
         } else /*if ($this->tokenCount > $count)*/ {
             //We have more tokens then we wanna consume, just move the pointer until we consumed the wished amount
-            $this->tokenLookAheadRingBufferPosition = ($this->tokenLookAheadRingBufferPosition + $count) % SQMParser::LOOKUP_BUFFER_MAX_SIZE;
-            $this->tokenCount -= $count;
+            SQMParser::$tokenLookAheadRingBufferPosition = (SQMParser::$tokenLookAheadRingBufferPosition + $count) % SQMParser::LOOKUP_BUFFER_MAX_SIZE;
+            SQMParser::$tokenCount -= $count;
         }
     }
 
