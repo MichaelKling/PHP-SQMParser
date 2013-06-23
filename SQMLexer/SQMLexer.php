@@ -19,7 +19,6 @@ class SQMLexer
         '/^(".*")/' => SQMTokenItem::T_STRING,
     );
 
-
     public static function run($source) {
          $tokens = array();
 
@@ -33,10 +32,10 @@ class SQMLexer
                 if($result === false) {
                     throw new Exception("Unable to parse line " . ($number+1) . ":$offset near \"$line\" - next key is '".$line[0]."' '".bin2hex($line[0])."'.");
                 }
-                if ($result['token'] != SQMTokenItem::T_SPACE) {
+                if ($result->token != SQMTokenItem::T_SPACE) {
                     $tokens[] = $result;
                 }
-                $length = $result['chars'];
+                $length = $result->char;
                 $line = substr($line, $length);
                 $offset += $length;
             }
@@ -48,68 +47,27 @@ class SQMLexer
     protected static function _match($string, $number) {
         //Try first fix matches:
         switch ($string[0]) {
-            case "=":
-                    return array(
-                        'chars' => 1,
-                        'token' => SQMTokenItem::T_ASSIGNMENT,
-                        'line' => $number
-                    );
+            case "=": return new SQMTokenItem(null,1,SQMTokenItem::T_ASSIGNMENT,$number);
                     break;
-            case "{":
-                    return array(
-                        'chars' => 1,
-                        'token' => SQMTokenItem::T_BLOCKSTART,
-                        'line' => $number
-                    );
+            case "{": return new SQMTokenItem(null,1,SQMTokenItem::T_BLOCKSTART,$number);
                     break;
-            case "}":
-                    return array(
-                        'chars' => 1,
-                        'token' => SQMTokenItem::T_BLOCKEND,
-                        'line' => $number
-                    );
+            case "}": return new SQMTokenItem(null,1,SQMTokenItem::T_BLOCKEND,$number);
                     break;
-
-            case ",":
-                    return array(
-                        'chars' => 1,
-                        'token' => SQMTokenItem::T_COMMA,
-                        'line' => $number
-                    );
+            case ",": return new SQMTokenItem(null,1,SQMTokenItem::T_COMMA,$number);
                     break;
-
-            case ";":
-                    return array(
-                        'chars' => 1,
-                        'token' => SQMTokenItem::T_SEMICOLON,
-                        'line' => $number
-                    );
+            case ";": return new SQMTokenItem(null,1,SQMTokenItem::T_SEMICOLON,$number);
                     break;
-
             case "[":
                     if ($string[1] == "]") {
-                        return array(
-                            'chars' => 2,
-                            'token' => SQMTokenItem::T_ARRAY,
-                            'line' => $number
-                        );
+                        return new SQMTokenItem(null,2,SQMTokenItem::T_ARRAY,$number);
                     }
                     break;
             case "c":
                 if ($string[1] == "l" && $string[2] == "a" && $string[3] == "s" && $string[4] == "s") {
-                    return array(
-                        'chars' => 5,
-                        'token' => SQMTokenItem::T_CLASS,
-                        'line' => $number
-                    );
+                    return new SQMTokenItem(null,5,SQMTokenItem::T_CLASS,$number);
                 }
                 if (preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*)/S", $string, $matches)) {
-                    return array(
-                        'match' => $matches[1],
-                        'chars' => strlen($matches[1]),
-                        'token' => SQMTokenItem::T_IDENTIFIER,
-                        'line' => $number
-                    );
+                    return new SQMTokenItem($matches[1],strlen($matches[1]),SQMTokenItem::T_IDENTIFIER,$number);
                 }
                 break;
             case "0":
@@ -126,20 +84,10 @@ class SQMLexer
             case "-":
             case "+":
                 if (preg_match("/^([-+]?(([0-9]*)\.([0-9]+))([eE][-+]?[0-9]+)?)/S", $string, $matches)) {
-                    return array(
-                        'match' => (float)($matches[1]),
-                        'chars' => strlen($matches[1]),
-                        'token' => SQMTokenItem::T_FLOAT,
-                        'line' => $number
-                    );
+                    return new SQMTokenItem((float)$matches[1],strlen($matches[1]),SQMTokenItem::T_FLOAT,$number);
                 }
                 if (preg_match("/^([-+]?([0-9]+))/S", $string, $matches)) {
-                    return array(
-                        'match' => (int)($matches[1]),
-                        'chars' => strlen($matches[1]),
-                        'token' => SQMTokenItem::T_INTEGER,
-                        'line' => $number
-                    );
+                    return new SQMTokenItem((int)$matches[1],strlen($matches[1]),SQMTokenItem::T_INTEGER,$number);
                 }
                break;
             case "\"":
@@ -148,29 +96,15 @@ class SQMLexer
                     $string = str_replace('""','XX',$string);
                 }
                 if (preg_match('/^(.*)"/S', $string, $matches)) {
-                    return array(
-                        'match' => $matches[1],
-                        'chars' => strlen($matches[1])+2,
-                        'token' => SQMTokenItem::T_STRING,
-                        'line' => $number
-                    );
+                    return new SQMTokenItem($matches[1],strlen($matches[1])+2,SQMTokenItem::T_STRING,$number);
                 }
                 break;
             default:
                 if (preg_match("/^(\s+)/S", $string, $matches)) {
-                    return array(
-                        'chars' => strlen($matches[1]),
-                        'token' => SQMTokenItem::T_SPACE,
-                        'line' => $number
-                    );
+                    return new SQMTokenItem(null,strlen($matches[1]),SQMTokenItem::T_SPACE,$number);
                 }
                 if (preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*)/S", $string, $matches)) {
-                    return array(
-                        'match' => $matches[1],
-                        'chars' => strlen($matches[1]),
-                        'token' => SQMTokenItem::T_IDENTIFIER,
-                        'line' => $number
-                    );
+                    return new SQMTokenItem($matches[1],strlen($matches[1]),SQMTokenItem::T_IDENTIFIER,$number);
                 }
                 break;
         }

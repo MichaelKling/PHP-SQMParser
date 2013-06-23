@@ -38,6 +38,12 @@ class SQMTokenItem
         }
     }
 
+    public function __construct($match,$char,$token,$line) {
+        $this->match = $match;
+        $this->char = $char;
+        $this->token = $token;
+        $this->line = $line;
+    }
     public $match = null;
     public $char = 1;
     public $token = SQMTokenItem::T_SPACE;
