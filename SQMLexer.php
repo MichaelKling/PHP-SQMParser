@@ -55,7 +55,7 @@ class SQMLexer
             while($offset < $lineLength) {
                 $result = SQMLexer::_match($line, $number, $offset);
                 if($result === false) {
-                    throw new Exception("Unable to parse line " . ($number+1) . ":$offset near \"$line\".");
+                    throw new Exception("Unable to parse line " . ($number+1) . ":$offset near \"$line\" - next key is '".$line[0]."' '".bin2hex($line[0])."'.");
                 }
                 if ($result['token'] != SQMLexer::T_SPACE) {
                     $tokens[] = $result;
@@ -126,6 +126,14 @@ class SQMLexer
                     return array(
                         'chars' => 5,
                         'token' => SQMLexer::T_CLASS,
+                        'line' => $number+1
+                    );
+                }
+                if (preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*)/S", $string, $matches)) {
+                    return array(
+                        'match' => $matches[1],
+                        'chars' => strlen($matches[1]),
+                        'token' => SQMLexer::T_IDENTIFIER,
                         'line' => $number+1
                     );
                 }
