@@ -11,6 +11,10 @@
 
 require_once SQMPARSER_BASE . 'SQMLexer/SQMTokenItem.php';
 
+class SQMFastLexer extends SQMLexer {
+    //NOthing to do here.
+}
+
 class SQMLexer
 {
     private static $rawTokens = null;

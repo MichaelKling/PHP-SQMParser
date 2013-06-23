@@ -13,6 +13,10 @@ require_once SQMPARSER_BASE . 'SQMLexer/SQMFastLexer.php';
 require_once SQMPARSER_BASE . 'SQMLibrary.php';
 require_once SQMPARSER_BASE . 'SQMPlayerParser.php';
 
+class SQMFastParser extends SQMParser {
+    //NOthing to do here.
+}
+
 class SQMParser {
     const LOOKUP_BUFFER_MAX_SIZE = 3;
     private $tokenCount = 0;
@@ -52,8 +56,10 @@ class SQMParser {
     protected function _run() {
         //Expect list of Definition Items
         do {
-            $this->_parseRootDefition($this->parsedData);
+            SQMLexer::getNextToken();
+           // $this->_parseRootDefition($this->parsedData);
         } while (!SQMLexer::isEOF());
+        SQMLexer::reset();
     }
 
 
