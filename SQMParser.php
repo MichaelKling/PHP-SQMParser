@@ -9,7 +9,7 @@
 define('SQMPARSER_BASE', dirname(__FILE__) . '/');
 
 require_once SQMPARSER_BASE . 'SQMFile.php';
-require_once SQMPARSER_BASE . 'SQMLexer.php';
+require_once SQMPARSER_BASE . 'SQMLexer/SQMLexer.php';
 require_once SQMPARSER_BASE . 'SQMLibrary.php';
 require_once SQMPARSER_BASE . 'SQMPlayerParser.php';
 
@@ -58,17 +58,17 @@ class SQMParser {
         //Switch between Class, Assignment
         $nextToken = $this->_tokenLookAhead(0);
         switch ($nextToken['token']) {
-            case SQMLexer::T_CLASS: $this->_parseClass($parentElement);
+            case SQMTokenItem::T_CLASS: $this->_parseClass($parentElement);
                             break;
-            case SQMLexer::T_IDENTIFIER:
+            case SQMTokenItem::T_IDENTIFIER:
                 $this->_parseAssignment($parentElement);
                 break;
-            default: throw new Exception("Next token is not allowed: ".SQMLexer::tokenToName($nextToken['token']).": ".$nextToken['match']." at line ".$nextToken['line'].".");;
+            default: throw new Exception("Next token is not allowed: ".$nextToken['token']->tokenToName().": ".$nextToken['match']." at line ".$nextToken['line'].".");;
         }
 
         $nextToken = $this->_tokenLookAhead(0);
-        if ($nextToken['token'] != SQMLexer::T_SEMICOLON) {
-            throw new Exception("Expected T_SEMICOLON, got ".SQMLexer::tokenToName($nextToken['token']).": ".$nextToken['match']." at line ".$nextToken['line'].".");
+        if ($nextToken['token'] != SQMTokenItem::T_SEMICOLON) {
+            throw new Exception("Expected T_SEMICOLON, got ".$nextToken['token']->tokenToName().": ".$nextToken['match']." at line ".$nextToken['line'].".");
         } else {
             $this->_consumeTokens(1);
         }
@@ -80,12 +80,12 @@ class SQMParser {
         $nextToken2 = $this->_tokenLookAhead(1);
         $nextToken3 = $this->_tokenLookAhead(2);
 
-        if ($nextToken['token'] == SQMLexer::T_IDENTIFIER && $nextToken2['token'] == SQMLexer::T_ASSIGNMENT) {
+        if ($nextToken['token'] == SQMTokenItem::T_IDENTIFIER && $nextToken2['token'] == SQMLexer::T_ASSIGNMENT) {
             $parentElement[$nextToken['match']] = null;
             $this->_consumeTokens(2);
 
             $this->_parseValue($parentElement[$nextToken['match']]);
-        } else if ($nextToken['token'] == SQMLexer::T_IDENTIFIER && $nextToken2['token'] == SQMLexer::T_ARRAY && $nextToken3['token'] == SQMLexer::T_ASSIGNMENT) {
+        } else if ($nextToken['token'] == SQMTokenItem::T_IDENTIFIER && $nextToken2['token'] == SQMLexer::T_ARRAY && $nextToken3['token'] == SQMLexer::T_ASSIGNMENT) {
             $parentElement[$nextToken['match']] = null;
             $this->_consumeTokens(3);
 
@@ -99,13 +99,13 @@ class SQMParser {
         $classname = null;
 
         $nextToken = $this->_tokenLookAhead(0);
-        if ($nextToken['token'] != SQMLexer::T_CLASS) {
+        if ($nextToken['token'] != SQMTokenItem::T_CLASS) {
             throw new Exception("Expected T_CLASS, got ".SQMLexer::tokenToName($nextToken['token']).": ".$nextToken['match']." at line ".$nextToken['line'].".");
         }
         $this->_consumeTokens(1);
 
         $nextToken = $this->_tokenLookAhead(0);
-        if ($nextToken['token'] != SQMLexer::T_IDENTIFIER) {
+        if ($nextToken['token'] != SQMTokenItem::T_IDENTIFIER) {
             throw new Exception("Expected T_IDENTIFIER, got ".SQMLexer::tokenToName($nextToken['token']).": ".$nextToken['match']." at line ".$nextToken['line'].".");
         }
         $this->_consumeTokens(1);
@@ -115,13 +115,13 @@ class SQMParser {
         $parentElement[$classname] = null;
 
         $nextToken = $this->_tokenLookAhead(0);
-        if ($nextToken['token'] != SQMLexer::T_BLOCKSTART) {
+        if ($nextToken['token'] != SQMTokenItem::T_BLOCKSTART) {
             throw new Exception("Expected T_BLOCKSTART, got ".SQMLexer::tokenToName($nextToken['token']).": ".$nextToken['match']." at line ".$nextToken['line'].".");
         }
         $this->_consumeTokens(1);
 
         $nextToken = $this->_tokenLookAhead(0);
-        while ($nextToken['token'] != SQMLexer::T_BLOCKEND) {
+        while ($nextToken['token'] != SQMTokenItem::T_BLOCKEND) {
                 $this->_parseDefinition($parentElement[$classname]);
                 $nextToken = $this->_tokenLookAhead(0);
         }
@@ -133,7 +133,7 @@ class SQMParser {
 
     protected function _parseValueList(&$parentElement) {
         $nextToken = $this->_tokenLookAhead(0);
-        if ($nextToken['token'] != SQMLexer::T_BLOCKSTART) {
+        if ($nextToken['token'] != SQMTokenItem::T_BLOCKSTART) {
             throw new Exception("Expected T_BLOCKSTART, got ".SQMLexer::tokenToName($nextToken['token']).": ".$nextToken['match']." at line ".$nextToken['line'].".");
         }
         $this->_consumeTokens(1);
@@ -141,13 +141,13 @@ class SQMParser {
         $parentElement = array();
 
         $nextToken = $this->_tokenLookAhead(0);
-        while ($nextToken['token'] != SQMLexer::T_BLOCKEND) {
+        while ($nextToken['token'] != SQMTokenItem::T_BLOCKEND) {
             $element = null;
             $this->_parseValue($element);
             $parentElement[] = $element;
 
             $nextToken = $this->_tokenLookAhead(0);
-            if ($nextToken['token'] == SQMLexer::T_COMMA) {
+            if ($nextToken['token'] == SQMTokenItem::T_COMMA) {
                 $this->_consumeTokens(1);
                 $nextToken = $this->_tokenLookAhead(0);
             }
@@ -159,12 +159,12 @@ class SQMParser {
         //<string>|<float>|<integer>
         $nextToken = $this->_tokenLookAhead(0);
         switch ($nextToken['token']) {
-            case SQMLexer::T_INTEGER:
-            case SQMLexer::T_FLOAT:
+            case SQMTokenItem::T_INTEGER:
+            case SQMTokenItem::T_FLOAT:
                 $this->_consumeTokens(1);
                 $parentElement = $nextToken['match'];
                 break;
-            case SQMLexer::T_STRING:
+            case SQMTokenItem::T_STRING:
                 $this->_consumeTokens(1);
                 $parentElement = $nextToken['match'];
                 break;
