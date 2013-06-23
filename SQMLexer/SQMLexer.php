@@ -67,6 +67,7 @@ class SQMLexer
             SQMLexer::$lineOffset += $result->length;
 
         } while ($result->token == SQMTokenItem::T_SPACE);
+
         return $result;
     }
 

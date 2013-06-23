@@ -14,13 +14,17 @@ require_once SQMPARSER_BASE . 'SQMLibrary.php';
 require_once SQMPARSER_BASE . 'SQMPlayerParser.php';
 
 class SQMParser {
-    private $currentToken = null;
-    private $lastToken = null;
+    const LOOKUP_BUFFER_MAX_SIZE = 3;
     private $tokenCount = 0;
+    private $tokenLookAheadRingBuffer = array();
+    private $tokenLookAheadRingBufferPosition = 0;
     private $parsedData = array();
 
     protected function __construct($sqmFile)
     {
+        for ($i = 0;$i < SQMParser::LOOKUP_BUFFER_MAX_SIZE;$i++) {
+            $this->tokenLookAheadRingBuffer[$i] = false;
+        }
         SQMLexer::init($sqmFile->content);
     }
 
@@ -198,36 +202,18 @@ class SQMParser {
 
     protected function _tokenLookAhead($index) {
         $token = null;
-        if ($index == $this->tokenCount-1) {
-            $token = $this->lastToken;
+        if ($index > 2) {
+            throw new Exception("Tried to lookup ".($index+1)." items - lookup buffer is only ".SQMParser::LOOKUP_BUFFER_MAX_SIZE." items big.");
         } else if ($index < $this->tokenCount) {
-            $token = $this->currentToken;
-            while ($index) {
-                $token = $token->next;
-                $index--;
-            }
+            $token = $this->tokenLookAheadRingBuffer[($this->tokenLookAheadRingBufferPosition + $index) % SQMParser::LOOKUP_BUFFER_MAX_SIZE];
         } else /*if ($index >= $this->tokenCount)*/ {
             $index -= $this->tokenCount-1;
-            if ($this->tokenCount == 0) {
-                $token = SQMLexer::getNextToken();
-                $this->currentToken = $token;
-                $this->lastToken = $token;
-                $this->tokenCount = 1;
-                $index--;
-                if (!$token) {
-                    throw new Exception("Tokenstream ended before it was supposed to end while looking ahead for tokens.");
-                }
-            } else {
-                $token = $this->lastToken;
-            }
-
-            while($index > 0) {
+            while ($index) {
                 $token = SQMLexer::getNextToken();
                 if (!$token) {
                     throw new Exception("Tokenstream ended before it was supposed to end while looking ahead for tokens.");
                 }
-                $this->lastToken->next = $token;
-                $this->lastToken = $token;
+                $this->tokenLookAheadRingBuffer[($this->tokenLookAheadRingBufferPosition + $this->tokenCount) % SQMParser::LOOKUP_BUFFER_MAX_SIZE] = $token;
                 $this->tokenCount++;
                 $index--;
             }
@@ -236,6 +222,7 @@ class SQMParser {
         if (!$token) {
             throw new Exception("Tokenstream ended before it was supposed to end while looking ahead for tokens.");
         }
+
         return $token;
     }
 
@@ -253,14 +240,10 @@ class SQMParser {
                 }
                 $count--;
             }
-
         } else /*if ($this->tokenCount > $count)*/ {
             //We have more tokens then we wanna consume, just move the pointer until we consumed the wished amount
-            while ($count) {
-                $this->currentToken = $this->currentToken->next;
-                $this->tokenCount--;
-                $count--;
-            }
+            $this->tokenLookAheadRingBufferPosition = ($this->tokenLookAheadRingBufferPosition + $count) % SQMParser::LOOKUP_BUFFER_MAX_SIZE;
+            $this->tokenCount -= $count;
         }
     }
 

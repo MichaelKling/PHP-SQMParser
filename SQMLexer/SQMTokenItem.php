@@ -48,6 +48,4 @@ class SQMTokenItem
     public $length = 1;
     public $token = SQMTokenItem::T_SPACE;
     public $line = 0;
-
-    public $next = null;
 }
