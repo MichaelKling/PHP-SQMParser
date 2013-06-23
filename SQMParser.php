@@ -65,17 +65,18 @@ class SQMParser {
             //Only the root definition list should handle the end of the stream.
             return;
         }
-        switch ($nextToken->token) {
+        switch ($nextToken[SQMTokenItem::INDEX_TOKEN]) {
             case SQMTokenItem::T_CLASS: $this->_parseClass($parentElement);
                 break;
             case SQMTokenItem::T_IDENTIFIER:
                 $this->_parseAssignment($parentElement);
                 break;
-            default: throw new Exception("Next token is not allowed: ".$this->_tokenLookAhead(0)->tokenToName().": ".$this->_tokenLookAhead(0)->match." at line ".$this->_tokenLookAhead(0)->line.".");;
+            default: throw new Exception("Next token is not allowed: ".SQMTokenItem::tokenToName($nextToken).": ".$nextToken[SQMTokenItem::INDEX_MATCH]." at line ".$nextToken[SQMTokenItem::INDEX_LINE].".");
         }
 
-        if ($this->_tokenLookAhead(0)->token != SQMTokenItem::T_SEMICOLON) {
-            throw new Exception("Expected T_SEMICOLON, got ".$this->_tokenLookAhead(0)->tokenToName().": ".$this->_tokenLookAhead(0)->match." at line ".$this->_tokenLookAhead(0)->line.".");
+        $nextToken = $this->_tokenLookAhead(0);
+        if ($nextToken[SQMTokenItem::INDEX_TOKEN] != SQMTokenItem::T_SEMICOLON) {
+            throw new Exception("Expected T_SEMICOLON, got ".SQMTokenItem::tokenToName($nextToken).": ".$nextToken[SQMTokenItem::INDEX_MATCH]." at line ".$nextToken[SQMTokenItem::INDEX_LINE].".");
         } else {
             $this->_consumeTokens(1);
         }
@@ -83,18 +84,21 @@ class SQMParser {
 
     protected function _parseDefinition(&$parentElement) {
         //Switch between Class, Assignment
-        switch ($this->_tokenLookAhead(0)->token) {
+        $nextToken = $this->_tokenLookAhead(0);
+        switch ($nextToken[SQMTokenItem::INDEX_TOKEN]) {
             case SQMTokenItem::T_CLASS:
                 $this->_parseClass($parentElement);
                 break;
             case SQMTokenItem::T_IDENTIFIER:
                 $this->_parseAssignment($parentElement);
                 break;
-            default: throw new Exception("Next token is not allowed: ".$this->_tokenLookAhead(0)->tokenToName().": ".$this->_tokenLookAhead(0)->match." at line ".$this->_tokenLookAhead(0)->line.".");;
+            default:
+                throw new Exception("Next token is not allowed: ".SQMTokenItem::tokenToName($nextToken).": ".$nextToken[SQMTokenItem::INDEX_MATCH]." at line ".$nextToken[SQMTokenItem::INDEX_LINE].".");
         }
 
-        if ($this->_tokenLookAhead(0)->token != SQMTokenItem::T_SEMICOLON) {
-            throw new Exception("Expected T_SEMICOLON, got ".$this->_tokenLookAhead(0)->tokenToName().": ".$this->_tokenLookAhead(0)->match." at line ".$this->_tokenLookAhead(0)->line.".");
+        $nextToken = $this->_tokenLookAhead(0);
+        if ($nextToken[SQMTokenItem::INDEX_TOKEN] != SQMTokenItem::T_SEMICOLON) {
+            throw new Exception("Expected T_SEMICOLON, got ".SQMTokenItem::tokenToName($nextToken).": ".$nextToken[SQMTokenItem::INDEX_MATCH]." at line ".$nextToken[SQMTokenItem::INDEX_LINE].".");
         } else {
             $this->_consumeTokens(1);
         }
@@ -103,42 +107,48 @@ class SQMParser {
     protected function _parseAssignment(&$parentElement) {
         //<identifier> [<arrayLiteral>] <assignmentLiteral> [<value>|<valueList>]
         $nextToken = $this->_tokenLookAhead(0);
-        if ($nextToken->token == SQMTokenItem::T_IDENTIFIER) {
-            switch ($this->_tokenLookAhead(1)->token) {
+        if ($nextToken[SQMTokenItem::INDEX_TOKEN] == SQMTokenItem::T_IDENTIFIER) {
+            $nextToken2 = $this->_tokenLookAhead(1);
+            switch ($nextToken2[SQMTokenItem::INDEX_TOKEN]) {
                 case SQMTokenItem::T_ASSIGNMENT :
                     $this->_consumeTokens(2);
-                    $this->_parseValue($parentElement[$nextToken->match]);
+                    $this->_parseValue($parentElement[$nextToken[SQMTokenItem::INDEX_MATCH]]);
                     return;
                 case SQMTokenItem::T_ARRAY :
-                    if ($this->_tokenLookAhead(2)->token == SQMTokenItem::T_ASSIGNMENT) {
+                    $nextToken3 = $this->_tokenLookAhead(2);
+                    if ($nextToken3[SQMTokenItem::INDEX_TOKEN] == SQMTokenItem::T_ASSIGNMENT) {
                         $this->_consumeTokens(3);
-                        $this->_parseValueList($parentElement[$nextToken->match]);
+                        $this->_parseValueList($parentElement[$nextToken[SQMTokenItem::INDEX_MATCH]]);
                         return;
                     }
             }
         }
-        throw new Exception("Next token set is not allowed: ".$nextToken->tokenToName().": ".$nextToken->match." at line ".$nextToken->line.".");
+        throw new Exception("Next token is not allowed: ".SQMTokenItem::tokenToName($nextToken).": ".$nextToken[SQMTokenItem::INDEX_MATCH]." at line ".$nextToken[SQMTokenItem::INDEX_LINE].".");;
     }
 
     protected function _parseClass(&$parentElement) {
-        if ($this->_tokenLookAhead(0)->token != SQMTokenItem::T_CLASS) {
-            throw new Exception("Expected T_CLASS, got ".($this->_tokenLookAhead(0)->tokenToName()).": ".$this->_tokenLookAhead(0)->match." at line ".$this->_tokenLookAhead(0)->line.".");
+        $nextToken = $this->_tokenLookAhead(0);
+        if ($nextToken[SQMTokenItem::INDEX_TOKEN] != SQMTokenItem::T_CLASS) {
+            throw new Exception("Expected T_CLASS, got ".SQMTokenItem::tokenToName($nextToken).": ".$nextToken[SQMTokenItem::INDEX_MATCH]." at line ".$nextToken[SQMTokenItem::INDEX_LINE].".");
         }
 
         $nextToken = $this->_tokenLookAhead(1);
-        if ($nextToken->token != SQMTokenItem::T_IDENTIFIER) {
-            throw new Exception("Expected T_IDENTIFIER, got ".($nextToken->tokenToName()).": ".$nextToken->match." at line ".$nextToken->line.".");
+        if ($nextToken[SQMTokenItem::INDEX_TOKEN] != SQMTokenItem::T_IDENTIFIER) {
+            throw new Exception("Expected T_IDENTIFIER, got ".SQMTokenItem::tokenToName($nextToken).": ".$nextToken[SQMTokenItem::INDEX_MATCH]." at line ".$nextToken[SQMTokenItem::INDEX_LINE].".");
         }
-        $className = $nextToken->match;
+        $className = $nextToken[SQMTokenItem::INDEX_MATCH];
         $parentElement[$className] = null;
 
-        if ($this->_tokenLookAhead(2)->token != SQMTokenItem::T_BLOCKSTART) {
-            throw new Exception("Expected T_BLOCKSTART, got ".($this->_tokenLookAhead(1)->tokenToName()).": ".$this->_tokenLookAhead(1)->match." at line ".$this->_tokenLookAhead(1)->line.".");
+        $nextToken = $this->_tokenLookAhead(2);
+        if ($nextToken[SQMTokenItem::INDEX_TOKEN] != SQMTokenItem::T_BLOCKSTART) {
+            throw new Exception("Expected T_BLOCKSTART, got ".SQMTokenItem::tokenToName($nextToken).": ".$nextToken[SQMTokenItem::INDEX_MATCH]." at line ".$nextToken[SQMTokenItem::INDEX_LINE].".");
         }
         $this->_consumeTokens(3);
 
-        while ($this->_tokenLookAhead(0)->token != SQMTokenItem::T_BLOCKEND) {
-                $this->_parseDefinition($parentElement[$className]);
+        $nextToken = $this->_tokenLookAhead(0);
+        while ($nextToken[SQMTokenItem::INDEX_TOKEN] != SQMTokenItem::T_BLOCKEND) {
+            $this->_parseDefinition($parentElement[$className]);
+            $nextToken = $this->_tokenLookAhead(0);
         }
         $this->_consumeTokens(1);
 
@@ -147,19 +157,22 @@ class SQMParser {
     }
 
     protected function _parseValueList(&$parentElement) {
-        if ($this->_tokenLookAhead(0)->token != SQMTokenItem::T_BLOCKSTART) {
-            throw new Exception("Expected T_BLOCKSTART, got ".($this->_tokenLookAhead(0)->tokenToName()).": ".$this->_tokenLookAhead(0)->match." at line ".$this->_tokenLookAhead(0)->line.".");
+        $nextToken = $this->_tokenLookAhead(0);
+        if ($nextToken[SQMTokenItem::INDEX_TOKEN] != SQMTokenItem::T_BLOCKSTART) {
+            throw new Exception("Expected T_BLOCKSTART, got ".SQMTokenItem::tokenToName($nextToken).": ".$nextToken[SQMTokenItem::INDEX_MATCH]." at line ".$nextToken[SQMTokenItem::INDEX_LINE].".");
         }
         $this->_consumeTokens(1);
 
         $parentElement = array();
 
-        while ($this->_tokenLookAhead(0)->token != SQMTokenItem::T_BLOCKEND) {
+        $nextToken = $this->_tokenLookAhead(0);
+        while ($nextToken[SQMTokenItem::INDEX_TOKEN] != SQMTokenItem::T_BLOCKEND) {
             $element = null;
             $this->_parseValue($element);
             $parentElement[] = $element;
 
-            if ($this->_tokenLookAhead(0)->token == SQMTokenItem::T_COMMA) {
+            $nextToken = $this->_tokenLookAhead(0);
+            if ($nextToken[SQMTokenItem::INDEX_TOKEN] == SQMTokenItem::T_COMMA) {
                 $this->_consumeTokens(1);
             }
         }
@@ -169,21 +182,21 @@ class SQMParser {
     protected function _parseValue(&$parentElement) {
         //<string>|<float>|<integer>
         $nextToken = $this->_tokenLookAhead(0);
-        switch ($nextToken->token) {
+        switch ($nextToken[SQMTokenItem::INDEX_TOKEN]) {
             case SQMTokenItem::T_INTEGER:
             case SQMTokenItem::T_FLOAT:
                 $this->_consumeTokens(1);
-                $parentElement = $nextToken->match;
+                $parentElement = $nextToken[SQMTokenItem::INDEX_MATCH];
                 break;
             case SQMTokenItem::T_STRING:
                 $this->_consumeTokens(1);
-                $parentElement = $nextToken->match;
+                $parentElement = $nextToken[SQMTokenItem::INDEX_MATCH];
                 break;
-            default: throw new Exception("Next token is not allowed: ".($nextToken->tokenToName()).": ".$nextToken->match." at line ".$nextToken->line.".");;
+            default: throw new Exception("Next token is not allowed: ".SQMTokenItem::tokenToName($nextToken).": ".$nextToken[SQMTokenItem::INDEX_MATCH]." at line ".$nextToken[SQMTokenItem::INDEX_LINE].".");
         }
     }
 
-    protected function _tokenLookAhead($index) {
+    protected function &_tokenLookAhead($index) {
         $token = null;
         if ($index > 2) {
             throw new Exception("Tried to lookup ".($index+1)." items - lookup buffer is only ".SQMParser::LOOKUP_BUFFER_MAX_SIZE." items big.");

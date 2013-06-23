@@ -7,21 +7,28 @@
  */
 class SQMTokenItem
 {
-    const T_SPACE = 0x01;
-    const T_CLASS = 0x02;
-    const T_ASSIGNMENT = 0x03;
-    const T_BLOCKSTART = 0x04;
-    const T_BLOCKEND = 0x05;
-    const T_ARRAY = 0x06;
-    const T_COMMA = 0x07;
-    const T_SEMICOLON = 0x08;
-    const T_IDENTIFIER = 0x09;
-    const T_FLOAT = 0x0A;
-    const T_INTEGER = 0x0B;
-    const T_STRING = 0x0C;
+    const T_SPACE = T_WHITESPACE;
+    const T_CLASS = T_CLASS;
+    const T_ASSIGNMENT = "=";
+    const T_BLOCKSTART = "{";
+    const T_BLOCKEND = "}";
+    const T_ARRAY = "[]";
+    const T_COMMA = ",";
+    const T_SEMICOLON = ";";
+    const T_IDENTIFIER = T_STRING;
+    const T_FLOAT = T_DNUMBER;
+    const T_INTEGER = T_LNUMBER;
+    const T_STRING = T_CONSTANT_ENCAPSED_STRING;
 
-    public function tokenToName() {
-        switch ($this->token) {
+    const INDEX_TOKEN = 0;
+    const INDEX_MATCH = 1;
+    const INDEX_LINE = 2;
+    const INDEX_LENGTH = 3;
+
+
+    public static function tokenToName(&$token) {
+        $output = (is_array($token)?$token[SQMTokenItem::INDEX_TOKEN]:$token);
+        switch ($output) {
             case SQMTokenItem::T_SPACE : return "T_SPACE"; break;
             case SQMTokenItem::T_CLASS : return "T_CLASS"; break;
             case SQMTokenItem::T_ASSIGNMENT : return "T_ASSIGNMENT"; break;
@@ -38,14 +45,13 @@ class SQMTokenItem
         }
     }
 
-    public function __construct($match,$length,$token,$line) {
-        $this->match = $match;
-        $this->length = $length;
-        $this->token = $token;
-        $this->line = $line;
+    public static function &construct($match,$length,$token,$line) {
+        $output = array(
+            SQMTokenItem::INDEX_TOKEN => $token,
+            SQMTokenItem::INDEX_MATCH => $match,
+            SQMTokenItem::INDEX_LINE => $line,
+            SQMTokenItem::INDEX_LENGTH => $length,
+        );
+        return $output;
     }
-    public $match = null;
-    public $length = 1;
-    public $token = SQMTokenItem::T_SPACE;
-    public $line = 0;
 }
