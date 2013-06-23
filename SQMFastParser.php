@@ -56,8 +56,7 @@ class SQMParser {
     protected function _run() {
         //Expect list of Definition Items
         do {
-            SQMLexer::getNextToken();
-           // $this->_parseRootDefition($this->parsedData);
+            $this->_parseRootDefition($this->parsedData);
         } while (!SQMLexer::isEOF());
         SQMLexer::reset();
     }
