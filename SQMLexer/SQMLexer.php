@@ -73,8 +73,7 @@ class SQMLexer
 
     protected static function _match($string, $number) {
         //Try first fix matches:
-        $char = ord($string[0]);
-        switch ($char) {
+        switch (ord($string[0])) {
             case 0x3d/*"="*/: return new SQMTokenItem(null,1,SQMTokenItem::T_ASSIGNMENT,$number);
                     break;
             case 0x7b/*"{"*/: return new SQMTokenItem(null,1,SQMTokenItem::T_BLOCKSTART,$number);
