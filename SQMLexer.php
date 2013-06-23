@@ -51,6 +51,7 @@ class SQMLexer
 
         $number = 0;
         while (($line = fgets($source))) {
+            $number++;
             $offset = 0;
             $lineLength = strlen($line);
             while($offset < $lineLength) {
@@ -65,8 +66,6 @@ class SQMLexer
                 $line = substr($line, $length);
                 $offset += $length;
             }
-
-            $number++;
         }
 
         return $tokens;
@@ -79,21 +78,21 @@ class SQMLexer
                     return array(
                         'chars' => 1,
                         'token' => SQMLexer::T_ASSIGNMENT,
-                        'line' => $number+1
+                        'line' => $number
                     );
                     break;
             case "{":
                     return array(
                         'chars' => 1,
                         'token' => SQMLexer::T_BLOCKSTART,
-                        'line' => $number+1
+                        'line' => $number
                     );
                     break;
             case "}":
                     return array(
                         'chars' => 1,
                         'token' => SQMLexer::T_BLOCKEND,
-                        'line' => $number+1
+                        'line' => $number
                     );
                     break;
 
@@ -101,7 +100,7 @@ class SQMLexer
                     return array(
                         'chars' => 1,
                         'token' => SQMLexer::T_COMMA,
-                        'line' => $number+1
+                        'line' => $number
                     );
                     break;
 
@@ -109,7 +108,7 @@ class SQMLexer
                     return array(
                         'chars' => 1,
                         'token' => SQMLexer::T_SEMICOLON,
-                        'line' => $number+1
+                        'line' => $number
                     );
                     break;
 
@@ -118,7 +117,7 @@ class SQMLexer
                         return array(
                             'chars' => 2,
                             'token' => SQMLexer::T_ARRAY,
-                            'line' => $number+1
+                            'line' => $number
                         );
                     }
                     break;
@@ -127,7 +126,7 @@ class SQMLexer
                     return array(
                         'chars' => 5,
                         'token' => SQMLexer::T_CLASS,
-                        'line' => $number+1
+                        'line' => $number
                     );
                 }
                 if (preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*)/S", $string, $matches)) {
@@ -135,7 +134,7 @@ class SQMLexer
                         'match' => $matches[1],
                         'chars' => strlen($matches[1]),
                         'token' => SQMLexer::T_IDENTIFIER,
-                        'line' => $number+1
+                        'line' => $number
                     );
                 }
                 break;
@@ -157,7 +156,7 @@ class SQMLexer
                         'match' => (float)($matches[1]),
                         'chars' => strlen($matches[1]),
                         'token' => SQMLexer::T_FLOAT,
-                        'line' => $number+1
+                        'line' => $number
                     );
                 }
                 if (preg_match("/^([-+]?([0-9]+))/S", $string, $matches)) {
@@ -165,7 +164,7 @@ class SQMLexer
                         'match' => (int)($matches[1]),
                         'chars' => strlen($matches[1]),
                         'token' => SQMLexer::T_INTEGER,
-                        'line' => $number+1
+                        'line' => $number
                     );
                 }
                break;
@@ -179,7 +178,7 @@ class SQMLexer
                         'match' => $matches[1],
                         'chars' => strlen($matches[1])+2,
                         'token' => SQMLexer::T_STRING,
-                        'line' => $number+1
+                        'line' => $number
                     );
                 }
                 break;
@@ -188,7 +187,7 @@ class SQMLexer
                     return array(
                         'chars' => strlen($matches[1]),
                         'token' => SQMLexer::T_SPACE,
-                        'line' => $number+1
+                        'line' => $number
                     );
                 }
                 if (preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*)/S", $string, $matches)) {
@@ -196,7 +195,7 @@ class SQMLexer
                         'match' => $matches[1],
                         'chars' => strlen($matches[1]),
                         'token' => SQMLexer::T_IDENTIFIER,
-                        'line' => $number+1
+                        'line' => $number
                     );
                 }
                 break;
