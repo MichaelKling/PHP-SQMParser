@@ -30,18 +30,19 @@ class SQMLexer
 
     public static function tokenToName($token) {
         switch ($token) {
-            case SQMLexer::T_SPACE : "T_SPACE"; break;
-            case SQMLexer::T_CLASS : "T_CLASS"; break;
-            case SQMLexer::T_ASSIGNMENT : "T_ASSIGNMENT"; break;
-            case SQMLexer::T_BLOCKSTART : "T_BLOCKEND"; break;
-            case SQMLexer::T_BLOCKEND : "T_BLOCKEND"; break;
-            case SQMLexer::T_ARRAY : "T_ARRAY"; break;
-            case SQMLexer::T_COMMA : "T_COMMA"; break;
-            case SQMLexer::T_SEMICOLON : "T_SEMICOLON"; break;
-            case SQMLexer::T_IDENTIFIER : "T_IDENTIFIER"; break;
-            case SQMLexer::T_FLOAT : "T_FLOAT"; break;
-            case SQMLexer::T_INTEGER : "T_INTEGER"; break;
-            case SQMLexer::T_STRING : "T_STRING"; break;
+            case SQMLexer::T_SPACE : return "T_SPACE"; break;
+            case SQMLexer::T_CLASS : return "T_CLASS"; break;
+            case SQMLexer::T_ASSIGNMENT : return "T_ASSIGNMENT"; break;
+            case SQMLexer::T_BLOCKSTART : return "T_BLOCKEND"; break;
+            case SQMLexer::T_BLOCKEND : return "T_BLOCKEND"; break;
+            case SQMLexer::T_ARRAY : return "T_ARRAY"; break;
+            case SQMLexer::T_COMMA : return "T_COMMA"; break;
+            case SQMLexer::T_SEMICOLON : return "T_SEMICOLON"; break;
+            case SQMLexer::T_IDENTIFIER : return "T_IDENTIFIER"; break;
+            case SQMLexer::T_FLOAT : return "T_FLOAT"; break;
+            case SQMLexer::T_INTEGER : return "T_INTEGER"; break;
+            case SQMLexer::T_STRING : return "T_STRING"; break;
+            default: return "UNKNOWN";
         }
     }
 
@@ -169,10 +170,11 @@ class SQMLexer
                 }
                break;
             case "\"":
-                if ($string != "\"\"") {
+                $string = substr($string,1);
+                if ($string != "\"") {
                     $string = str_replace('""','XX',$string);
                 }
-                if (preg_match('/^"(.*)"/S', $string, $matches)) {
+                if (preg_match('/^(.*)"/S', $string, $matches)) {
                     return array(
                         'match' => $matches[1],
                         'chars' => strlen($matches[1])+2,
