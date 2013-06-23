@@ -86,15 +86,15 @@ class SQMLexer
             case 0x3b/*";"*/: return new SQMTokenItem(null,1,SQMTokenItem::T_SEMICOLON,$number);
                     break;
             case 0x5b/*"["*/:
-                    if ($string[1] == "]") {
+                    if ($string[1] == ']') {
                         return new SQMTokenItem(null,2,SQMTokenItem::T_ARRAY,$number);
                     }
                     break;
             case 0x63/*"c"*/:
-                if ($string[1] == "l" && $string[2] == "a" && $string[3] == "s" && $string[4] == "s") {
+                if ($string[1] == 'l' && $string[2] == 'a' && $string[3] == 's' && $string[4] == 's') {
                     return new SQMTokenItem(null,5,SQMTokenItem::T_CLASS,$number);
                 }
-                if (preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*)/S", $string, $matches)) {
+                if (preg_match('/^([a-zA-Z_][a-zA-Z0-9_]*)/S', $string, $matches)) {
                     return new SQMTokenItem($matches[1],strlen($matches[1]),SQMTokenItem::T_IDENTIFIER,$number);
                 }
                 break;
@@ -111,29 +111,69 @@ class SQMLexer
             case 0x2e/*"."*/:
             case 0x2d/*"-"*/:
             case 0x2b/*"+"*/:
+                /*
+                $maxOffset = strlen($string) - 1;
+
+                $offset = 0;
+                if (($string[$offset] == '-' || $string[$offset] == '+') && ($maxOffset > $offset)) { //"-" "+"
+                    ++$offset;
+                }
+                while ($string[$offset] >= '0' && $string[$offset] <= '9' && $maxOffset > $offset) { //"0" "9"
+                    //$value = ($value*10) + (ord($string[$offset]) - 0x30);
+                    ++$offset;
+                }
+                if ($string[$offset] != '.') { //"."
+                    //If not . it needs to be an integer!
+                    //return new SQMTokenItem($multiplicator * $value,$offset,SQMTokenItem::T_INTEGER,$number);
+                    return new SQMTokenItem((int)$string,$offset,SQMTokenItem::T_INTEGER,$number);
+                } else {
+                    ++$offset;
+                }
+                while ($string[$offset] >= '0' && $string[$offset] <= '9' && $maxOffset > $offset) { //"0" "9"
+                    ++$offset;
+                }
+                if (($string[$offset] == 'e' || $string[$offset] == 'E') && $maxOffset > $offset) {
+                    ++$offset;
+                    if (($string[$offset] == '-' || $string[$offset] == '+') && ($maxOffset > $offset)) {  //"-" "+"
+                        ++$offset;
+                        while ($string[$offset] >= '0' && $string[$offset] <= '9' && $maxOffset > $offset) { //"0" "9"
+                            ++$offset;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                return new SQMTokenItem((float)$string,$offset,SQMTokenItem::T_FLOAT,$number);
+
+                Incredible but true: 2 preg_match usages are faster then writing an own string check...
+                */
+
                 if (preg_match("/^([-+]?(([0-9]*)\.([0-9]+))([eE][-+]?[0-9]+)?)/S", $string, $matches)) {
                     return new SQMTokenItem((float)$matches[1],strlen($matches[1]),SQMTokenItem::T_FLOAT,$number);
                 }
+
                 if (preg_match("/^([-+]?([0-9]+))/S", $string, $matches)) {
                     return new SQMTokenItem((int)$matches[1],strlen($matches[1]),SQMTokenItem::T_INTEGER,$number);
                 }
                break;
             case 0x22/*"\""*/:
-                $string = substr($string,1);
-                if ($string != "\"") {
-                    $string = str_replace('""','XX',$string);
+                $length = strlen($string);
+                for ($i = 1;$i < $length - 2;$i++) {
+                    if ($string[$i] == '"' && $string[$i+1] == '"') {
+                        $string[$i] = 'X';
+                        $string[$i+1] = 'X';
+                    }
                 }
-                $end = strpos($string,"\"");
+                $end = strpos($string,"\"",1);
                 if ($end !== false) {
-                    $string = substr($string,0,$end);
-                    return new SQMTokenItem($string,$end+2,SQMTokenItem::T_STRING,$number);
+                    return new SQMTokenItem(substr($string,1,$end-1),$end-1+2,SQMTokenItem::T_STRING,$number);
                 }
                 break;
             default:
-                if (preg_match("/^(\s+)/S", $string, $matches)) {
+                if (preg_match('/^(\s+)/S', $string, $matches)) {
                     return new SQMTokenItem(null,strlen($matches[1]),SQMTokenItem::T_SPACE,$number);
                 }
-                if (preg_match("/^([a-zA-Z_][a-zA-Z0-9_]*)/S", $string, $matches)) {
+                if (preg_match('/^([a-zA-Z_][a-zA-Z0-9_]*)/S', $string, $matches)) {
                     return new SQMTokenItem($matches[1],strlen($matches[1]),SQMTokenItem::T_IDENTIFIER,$number);
                 }
                 break;
