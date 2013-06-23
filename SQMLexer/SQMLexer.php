@@ -10,6 +10,11 @@ require_once SQMPARSER_BASE . 'SQMLexer/SQMTokenItem.php';
 
 class SQMLexer
 {
+    private static $source = null;
+    private static $lineNumber = 0;
+    private static $lineOffset = 0;
+    private static $line = false;
+    private static $lineLength = 0;
 
     protected static $_tokens = array(
         "/^(\s+)/" => SQMTokenItem::T_SPACE,
@@ -19,29 +24,50 @@ class SQMLexer
         '/^(".*")/' => SQMTokenItem::T_STRING,
     );
 
-    public static function run($source) {
-         $tokens = array();
+    public static function init($source) {
+        SQMLexer::$source = $source;
+        SQMLexer::$lineNumber = 0;
+        SQMLexer::$line = false;
+        SQMLexer::$lineOffset = 0;
+        SQMLexer::$lineLength = 0;
+    }
 
-        $number = 0;
-        while (($line = fgets($source))) {
-            $number++;
-            $offset = 0;
-            $lineLength = strlen($line);
-            while($offset < $lineLength) {
-                $result = SQMLexer::_match($line, $number, $offset);
-                if($result === false) {
-                    throw new Exception("Unable to parse line " . ($number+1) . ":$offset near \"$line\" - next key is '".$line[0]."' '".bin2hex($line[0])."'.");
-                }
-                if ($result->token != SQMTokenItem::T_SPACE) {
-                    $tokens[] = $result;
-                }
-                $length = $result->char;
-                $line = substr($line, $length);
-                $offset += $length;
-            }
+    public static function isEOF() {
+        //End of line?
+        if (SQMLexer::$lineOffset >= SQMLexer::$lineLength) {
+            SQMLexer::$lineNumber++;
+            SQMLexer::$line = fgets(SQMLexer::$source);
+            SQMLexer::$lineOffset = 0;
+            SQMLexer::$lineLength = strlen(SQMLexer::$line);
         }
+        return SQMLexer::$line === FALSE;
+    }
 
-        return $tokens;
+    public static function getNextToken() {
+        do {
+            //End of line?
+            if (SQMLexer::$lineOffset >= SQMLexer::$lineLength) {
+                SQMLexer::$lineNumber++;
+                SQMLexer::$line = fgets(SQMLexer::$source);
+                SQMLexer::$lineOffset = 0;
+                SQMLexer::$lineLength = strlen(SQMLexer::$line);
+            }
+
+            //End of file?
+            if (SQMLexer::$line === FALSE) {
+                return false;
+            }
+
+            $result = SQMLexer::_match(SQMLexer::$line, SQMLexer::$lineNumber, SQMLexer::$lineOffset);
+            if($result === false) {
+                throw new Exception("Unable to parse line " . (SQMLexer::$lineNumber) . ":".SQMLexer::$lineOffset." near \"".SQMLexer::$line."\" - next key is '".SQMLexer::$line[0]."' '".bin2hex(SQMLexer::$line[0])."'.");
+            }
+
+            SQMLexer::$line = substr(SQMLexer::$line,$result->length);
+            SQMLexer::$lineOffset += $result->length;
+
+        } while ($result->token == SQMTokenItem::T_SPACE);
+        return $result;
     }
 
     protected static function _match($string, $number) {

@@ -22,33 +22,32 @@ class SQMTokenItem
 
     public function tokenToName() {
         switch ($this->token) {
-            case SQMLexer::T_SPACE : return "T_SPACE"; break;
-            case SQMLexer::T_CLASS : return "T_CLASS"; break;
-            case SQMLexer::T_ASSIGNMENT : return "T_ASSIGNMENT"; break;
-            case SQMLexer::T_BLOCKSTART : return "T_BLOCKEND"; break;
-            case SQMLexer::T_BLOCKEND : return "T_BLOCKEND"; break;
-            case SQMLexer::T_ARRAY : return "T_ARRAY"; break;
-            case SQMLexer::T_COMMA : return "T_COMMA"; break;
-            case SQMLexer::T_SEMICOLON : return "T_SEMICOLON"; break;
-            case SQMLexer::T_IDENTIFIER : return "T_IDENTIFIER"; break;
-            case SQMLexer::T_FLOAT : return "T_FLOAT"; break;
-            case SQMLexer::T_INTEGER : return "T_INTEGER"; break;
-            case SQMLexer::T_STRING : return "T_STRING"; break;
+            case SQMTokenItem::T_SPACE : return "T_SPACE"; break;
+            case SQMTokenItem::T_CLASS : return "T_CLASS"; break;
+            case SQMTokenItem::T_ASSIGNMENT : return "T_ASSIGNMENT"; break;
+            case SQMTokenItem::T_BLOCKSTART : return "T_BLOCKEND"; break;
+            case SQMTokenItem::T_BLOCKEND : return "T_BLOCKEND"; break;
+            case SQMTokenItem::T_ARRAY : return "T_ARRAY"; break;
+            case SQMTokenItem::T_COMMA : return "T_COMMA"; break;
+            case SQMTokenItem::T_SEMICOLON : return "T_SEMICOLON"; break;
+            case SQMTokenItem::T_IDENTIFIER : return "T_IDENTIFIER"; break;
+            case SQMTokenItem::T_FLOAT : return "T_FLOAT"; break;
+            case SQMTokenItem::T_INTEGER : return "T_INTEGER"; break;
+            case SQMTokenItem::T_STRING : return "T_STRING"; break;
             default: return "UNKNOWN";
         }
     }
 
-    public function __construct($match,$char,$token,$line) {
+    public function __construct($match,$length,$token,$line) {
         $this->match = $match;
-        $this->char = $char;
+        $this->length = $length;
         $this->token = $token;
         $this->line = $line;
     }
     public $match = null;
-    public $char = 1;
+    public $length = 1;
     public $token = SQMTokenItem::T_SPACE;
     public $line = 0;
-
 
     public $next = null;
 }
