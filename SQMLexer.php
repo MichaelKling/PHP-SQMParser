@@ -151,7 +151,7 @@ class SQMLexer
             case ".":
             case "-":
             case "+":
-                if (preg_match("/^([-+]?(([0-9]*)\.([0-9]+)))/S", $string, $matches)) {
+                if (preg_match("/^([-+]?(([0-9]*)\.([0-9]+))([eE][-+]?[0-9]+)?)/S", $string, $matches)) {
                     return array(
                         'match' => (float)($matches[1]),
                         'chars' => strlen($matches[1]),
