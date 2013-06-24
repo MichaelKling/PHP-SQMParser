@@ -8,7 +8,7 @@
 class SQMTokenItem
 {
     const T_CLASS = T_CLASS;
-    const T_ASSIGNMENT = "=";
+    const T_ASSIGNMENT =  "=";
     const T_BLOCKSTART = "{";
     const T_BLOCKEND = "}";
     const T_ARRAY = "[]";
