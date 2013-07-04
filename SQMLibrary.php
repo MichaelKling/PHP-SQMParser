@@ -344,7 +344,7 @@ EOT;
         
         $codeFileContent .= "\tif (FALSE) {\n\t}";
         foreach (SQMLibrary::$playerRoles as $roleKey => $activeRoles) {
-            $codeFileContent .= " else if (strcmp(role,\"$roleKey\") == 0)) {\n";
+            $codeFileContent .= " else if (strcmp(role,\"$roleKey\") == 0) {\n";
             foreach ($activeRoles as $role) {
                 $codeFileContent .= "\t\troles->$role = TRUE;\n";
             }
@@ -355,7 +355,7 @@ EOT;
         $codeFileContent .= "\n}\n\nchar *classnamesGetRank(char *rank) {\n";
         $codeFileContent .= "\tif (FALSE) {\n\t}";
         foreach (SQMLibrary::$ranks as $rank => $rankName) {
-            $codeFileContent .= " else if (strcmp(rank,\"$rank\") == 0)) {\n";
+            $codeFileContent .= " else if (strcmp(rank,\"$rank\") == 0) {\n";
             $codeFileContent .= "\t\treturn \"$rankName\";\n";
             $codeFileContent .= "\t}";
         }
@@ -364,7 +364,7 @@ EOT;
         $codeFileContent .= "\n}\n\nchar *classnamesGetRankShort(char *rank) {\n";
         $codeFileContent .= "\tif (FALSE) {\n\t}";
         foreach (SQMLibrary::$ranksShort as $rank => $rankName) {
-            $codeFileContent .= " else if (strcmp(rank,\"$rank\") == 0)) {\n";
+            $codeFileContent .= " else if (strcmp(rank,\"$rank\") == 0) {\n";
             $codeFileContent .= "\t\treturn \"$rankName\";\n";
             $codeFileContent .= "\t}";
         }
