@@ -101,7 +101,7 @@ class SQMLibrary
         'LIEUTENANT' => 'Ltn.',
         'CAPTAIN' => 'Ctn.',
         'MAJOR' => 'Mjr.',
-        'COLONEL' => 'Cnl',
+        'COLONEL' => 'Cnl.',
     );
 
     public static $classNamesMen = array();
@@ -246,5 +246,135 @@ class SQMLibrary
             }
         }
         return $result;
+    }
+    
+    
+    public static function generateCCode($outputDir = "./") {
+        if (empty(SQMLibrary::$classNamesVehicles)) {
+            SQMLibrary::_loadClassnameVehicles();
+        }
+        if (empty(SQMLibrary::$classNamesMen)) {
+            SQMLibrary::_loadClassnameMen();
+        }
+        
+        $headerFileName = "classnames.h";
+        $headerFileContent = <<< EOT
+#ifndef _CLASSNAMES_H_
+#define _CLASSNAMES_H_              
+        void classnamesCreateSites();
+        void classnamesCreateRoles();
+        void classnamesCreateClassnamesMen();
+        void classnamesCreateClassnamesVehicle();
+        
+        void classnamesCreateAll();
+        
+        typedef struct roles {
+            boolean Commander;
+            boolean Driver;
+            boolean Gunner;
+        } Roles;
+        
+        char *classnamesGetNatoAlphabet(int number);
+        int classnamesGetNatoAlpabetSize();
+        struct Roles classnamesGetPlayerRoles(char *role);
+        char *classnamesGetRank(char *rank);
+        char *classnamesGetRankShort(char *rank);
+#endif /* _CLASSNAMES_H_ */        
+EOT;
+        
+        $codeFileName = "classnames.c";
+        $codeFileContent = <<< EOT
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "../common.h"
+#include "../utils.h"
+#include "classnames.h"
+#include "../sym.h" 
+ 
+void classnamesCreateAll() {
+    classnamesCreateSites();
+    classnamesCreateRoles();
+    classnamesCreateClassnamesMen();
+    classnamesCreateClassnamesVehicle();
+}
+
+void classnamesCreateSites() {
+
+EOT;
+        $sites = SQMLibrary::$sites;
+        foreach ($sites as $key => $site) {
+            $codeFileContent .= "\tnewTypedSym(\"$key\",\"$site\",SYM_SITE);\n";
+        }
+
+        $codeFileContent .= "\n}\n\nvoid classnamesCreateRoles() {\n";
+        $roles = SQMLibrary::playerRoleToRoles('PLAY CDG');
+        foreach ($roles as $role) {
+            $codeFileContent .= "\tnewTypedSym(\"$role\",\"$role\",SYM_ROLE);\n";
+        }
+        
+        $codeFileContent .= "\n}\n\nvoid classnamesCreateClassnamesMen() {\n";
+        foreach (SQMLibrary::$classNamesMen as $key => $class) {
+            $codeFileContent .= "\tnewTypedSym(\"$key\",\"$class\",SYM_MEN);\n";
+        }
+
+        $codeFileContent .= "\n}\n\nvoid classnamesCreateClassnamesVehicle() {\n";
+        foreach (SQMLibrary::$classNamesVehicles as $key => $class) {
+            $codeFileContent .= "\tnewTypedSym(\"$key\",\"$class\",SYM_VEHICLE);\n";
+        }
+
+        $codeFileContent .= "\n}\n\nchar *classnamesGetNatoAlphabet(int number) {\n";
+        $nato = SQMLibrary::$natoAlphabet;
+        $natoSize = count($nato);
+        $codeFileContent .= "\tstatic const char * const nato[] = {\n";
+        $codeFileContent .= "\t\t\"".implode("\",\n\t\t\"",$nato)."\"\n";
+        $codeFileContent .= "\t};\n";
+        $codeFileContent .= "\treturn nato[number % $natoSize];\n";
+        
+        $codeFileContent .= "\n}\n\nint classnamesGetNatoSize() {\n";
+        
+        $codeFileContent .= "\treturn $natoSize;\n";
+        
+        $codeFileContent .= "\n}\n\nstruct Roles classnamesGetPlayerRoles(char *role) {\n";
+        
+        $codeFileContent .= "\tstruct Roles roles;\n";
+        $codeFileContent .= "\troles.Commander = FALSE;\n";
+        $codeFileContent .= "\troles.Driver = FALSE;\n";
+        $codeFileContent .= "\troles.Gunner = FALSE;\n";
+        
+        $codeFileContent .= "\tif (FALSE) {\n\t}";
+        foreach (SQMLibrary::$playerRoles as $roleKey => $activeRoles) {
+            $codeFileContent .= " else if strcmp(role,\"$roleKey\") == 0) {\n";
+            foreach ($activeRoles as $role) {
+                $codeFileContent .= "\t\troles.$role = TRUE;\n";
+            }
+            $codeFileContent .= "\t\treturn roles;\n";
+            $codeFileContent .= "\t}";
+        }
+        $codeFileContent .= "\n\treturn roles;\n";
+
+        $codeFileContent .= "\n}\n\nchar *classnamesGetRank(char *rank) {\n";
+        $codeFileContent .= "\tif (FALSE) {\n\t}";
+        foreach (SQMLibrary::$ranks as $rank => $rankName) {
+            $codeFileContent .= " else if strcmp(rank,\"$rank\") == 0) {\n";
+            $codeFileContent .= "\t\treturn \"$rankName\";\n";
+            $codeFileContent .= "\t}";
+        }
+        $codeFileContent .= "\n\treturn rank;\n";
+
+        $codeFileContent .= "\n}\n\nchar *classnamesGetRankShort(char *rank) {\n";
+        $codeFileContent .= "\tif (FALSE) {\n\t}";
+        foreach (SQMLibrary::$ranksShort as $rank => $rankName) {
+            $codeFileContent .= " else if strcmp(rank,\"$rank\") == 0) {\n";
+            $codeFileContent .= "\t\treturn \"$rankName\";\n";
+            $codeFileContent .= "\t}";
+        }
+        $codeFileContent .= "\n\treturn rank;\n";
+        
+        $codeFileContent .= "\n}\n";
+
+        file_put_contents($outputDir.$headerFileName,$headerFileContent);
+        file_put_contents($outputDir.$codeFileName,$codeFileContent);
     }
 }
